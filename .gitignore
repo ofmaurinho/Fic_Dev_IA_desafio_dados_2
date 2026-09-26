@@ -1,0 +1,52 @@
+﻿# Apache Hop
+**/audit/
+**/.metadata/
+**/logs/
+**/tmp/
+
+# Configurações locais
+*.local
+*.local.json
+*.env
+.env
+.env.*
+!.env.example
+
+# Credenciais e segredos
+*credentials*
+*credential*
+*secret*
+*secrets*
+*password*
+*passwd*
+*.key
+*.pem
+
+# Dados locais potencialmente sensíveis
+dados/**/raw/
+dados/**/temp/
+dados/**/private/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Java
+*.class
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
