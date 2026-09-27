@@ -22,11 +22,6 @@
 *.key
 *.pem
 
-# Dados locais potencialmente sensíveis
-dados/**/raw/
-dados/**/temp/
-dados/**/private/
-
 # Arquivos de sistema
 .DS_Store
 Thumbs.db
@@ -50,3 +45,12 @@ venv/
 *.tmp
 *.temp
 *.bak
+
+# Dados gerados pelos pipelines
+dados/bronze/
+dados/silver/
+dados/gold/
+dados/quarentena/
+
+# Pasta metadata com configurações de conexão ao banco postgresql do apache hop
+metadata/
