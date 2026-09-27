@@ -1,0 +1,31 @@
+{
+  "id_execucao": "55ccf5c7-9f01-4ac9-a294-3835d9646fbc",
+  "runtime": "direct",
+  "runner": "DirectRunner",
+  "estado": "DONE",
+  "inicio": "2026-09-27T19:41:06",
+  "duracao_s": 2.273,
+  "entrada": {
+    "caminho": "dados/silver/parquet_x100",
+    "linhas": 100000,
+    "arquivos": 8
+  },
+  "saida": {
+    "caminho": "dados/gold/comparacao_runtimes/direct_100000",
+    "linhas": 64,
+    "arquivos": 1
+  },
+  "metricas": {
+    "interacoes_lidas": 100000,
+    "interacoes_sem_categoria": 0
+  },
+  "opcoes_beam": {
+    "runner": "DirectRunner"
+  },
+  "versoes": {
+    "python": "3.13.5",
+    "apache_beam": "2.76.0",
+    "pyarrow": "25.0.1",
+    "sistema": "Windows-11-10.0.26200-SP0"
+  }
+}

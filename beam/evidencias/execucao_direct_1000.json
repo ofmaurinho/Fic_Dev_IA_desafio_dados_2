@@ -1,0 +1,29 @@
+{
+  "id_execucao": "c086ac8d-f5ad-4e03-b3b4-a7aec1e4cd58",
+  "runtime": "direct",
+  "runner": "DirectRunner",
+  "estado": "DONE",
+  "inicio": "2026-09-27T19:42:28",
+  "duracao_s": 1.043,
+  "entrada": {
+    "caminho": "dados/silver/parquet",
+    "linhas": 1000,
+    "arquivos": 8
+  },
+  "saida": {
+    "caminho": "dados/gold/engajamento_categoria_mensal",
+    "linhas": 64,
+    "arquivos": 1
+  },
+  "metricas": {
+    "interacoes_lidas": 1000,
+    "interacoes_sem_categoria": 0
+  },
+  "opcoes_beam": {},
+  "versoes": {
+    "python": "3.13.5",
+    "apache_beam": "2.76.0",
+    "pyarrow": "25.0.1",
+    "sistema": "Windows-11-10.0.26200-SP0"
+  }
+}

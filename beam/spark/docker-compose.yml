@@ -1,0 +1,88 @@
+# Runtime Apache Spark para o pipeline Apache Beam (RF25).
+#
+# Cluster standalone com 1 master e 2 workers. O pipeline Python é enviado
+# ao job server do Beam, que atua como driver Spark. Cada executor Spark
+# executa o código Python em um worker pool do Beam que compartilha a rede
+# do worker Spark (as conexões entre executor e SDK usam localhost).
+#
+# As versões seguem o job server: Beam 2.76.0 empacota Spark 3.5.0 / Scala 2.12.
+#
+# Uso (a partir da raiz do projeto):
+#   docker compose -f beam/spark/docker-compose.yml up -d
+#   UI do Spark: http://localhost:8090
+
+name: desafio2-spark
+
+x-spark-worker: &spark-worker
+  image: apache/spark:3.5.0
+  command: >
+    /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+    spark://spark-master:7077 --cores 2 --memory 1g
+  volumes:
+    - beam-jars:/opt/beam-jars:ro
+  depends_on:
+    - spark-master
+
+x-beam-worker-pool: &beam-worker-pool
+  image: apache/beam_python3.13_sdk:2.76.0
+  command: --worker_pool
+  environment:
+    # Usa o Python da imagem em vez de criar um venv temporário por worker.
+    RUN_PYTHON_SDK_IN_DEFAULT_ENVIRONMENT: "1"
+  # O pipeline usa caminhos relativos à raiz do projeto.
+  working_dir: /projeto
+  volumes:
+    - ../../dados:/projeto/dados
+
+services:
+  spark-master:
+    image: apache/spark:3.5.0
+    hostname: spark-master
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+      --host spark-master
+    ports:
+      - "8090:8080"
+
+  spark-worker-1:
+    <<: *spark-worker
+    hostname: spark-worker-1
+    ports:
+      - "8091:8081"
+
+  spark-worker-2:
+    <<: *spark-worker
+    hostname: spark-worker-2
+    ports:
+      - "8092:8081"
+
+  beam-worker-pool-1:
+    <<: *beam-worker-pool
+    network_mode: service:spark-worker-1
+
+  beam-worker-pool-2:
+    <<: *beam-worker-pool
+    network_mode: service:spark-worker-2
+
+  beam-job-server:
+    image: apache/beam_spark3_job_server:2.76.0
+    hostname: beam-job-server
+    command: --spark-master-url=spark://spark-master:7077 --job-host=0.0.0.0
+    environment:
+      # Os executores carregam primeiro o jar do Beam, que traz Guava 33 (o
+      # Spark da imagem traz Guava 14, incompatível com o gcsio do Beam). O
+      # Spark empacotado no jar é o mesmo 3.5.0 / Scala 2.12 do cluster.
+      JAVA_TOOL_OPTIONS: >-
+        -Dspark.executor.extraClassPath=/opt/beam-jars/beam-runners-spark-job-server.jar
+    volumes:
+      # Volume nomeado: o Docker copia o conteúdo da imagem para ele, e os
+      # workers Spark o montam em /opt/beam-jars.
+      - beam-jars:/opt/apache/beam/jars
+    depends_on:
+      - spark-master
+    ports:
+      - "8099:8099" # serviço de jobs
+      - "8098:8098" # staging de artefatos
+
+volumes:
+  beam-jars:

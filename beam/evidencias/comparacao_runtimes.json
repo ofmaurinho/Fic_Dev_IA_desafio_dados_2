@@ -1,0 +1,56 @@
+{
+  "resultados": [
+    {
+      "linhas": 1000,
+      "comparacao": {
+        "iguais": true,
+        "divergentes": {}
+      }
+    },
+    {
+      "linhas": 100000,
+      "comparacao": {
+        "iguais": true,
+        "divergentes": {}
+      }
+    }
+  ],
+  "cluster_spark": {
+    "url": "spark://spark-master:7077",
+    "status": "ALIVE",
+    "workers": [
+      {
+        "host": "172.30.0.3",
+        "cores": 2,
+        "memoria_mb": 1024,
+        "estado": "ALIVE"
+      },
+      {
+        "host": "172.30.0.4",
+        "cores": 2,
+        "memoria_mb": 1024,
+        "estado": "ALIVE"
+      }
+    ],
+    "aplicacoes_concluidas": [
+      {
+        "nome": "BeamApp-root-0927233844-d1e750a5_671b35af-599f-4b84-a659-936c003906b1",
+        "cores": 4,
+        "duracao_ms": 36561,
+        "estado": "FINISHED"
+      },
+      {
+        "nome": "BeamApp-root-0927234014-90c294ee_28637131-c157-4ccc-a059-b80692b759dc",
+        "cores": 4,
+        "duracao_ms": 47614,
+        "estado": "FINISHED"
+      },
+      {
+        "nome": "BeamApp-root-0927234114-4fe71d8f_080e67fd-db66-4e5e-b20e-c745fd751ada",
+        "cores": 4,
+        "duracao_ms": 30499,
+        "estado": "FINISHED"
+      }
+    ]
+  }
+}

@@ -133,3 +133,123 @@ Conclusões:
   processo. O desempenho distribuído é medido no RF25.
 - **Sobrescrita completa:** a exportação sobrescreve o conjunto inteiro a cada
   execução. Uma evolução possível é regravar só as partições alteradas.
+
+## RF25 — Processamento distribuído com Apache Beam
+
+### Regra de negócio
+
+`beam/pipeline.py` calcula o **engajamento mensal por categoria**: lê as
+interações e o catálogo da Silver em Parquet, associa cada interação à
+categoria do conteúdo e agrega por (`ano_mes`, `categoria`). O resultado é
+gravado em Parquet na Gold, em `dados/gold/engajamento_categoria_mensal/`.
+
+| Medida | Regra |
+|---|---|
+| `total_interacoes` | Quantidade de interações do grupo |
+| `usuarios_ativos` | Usuários distintos com ao menos uma interação no mês e na categoria |
+| `conteudos_consumidos` | Conteúdos distintos com interação |
+| `interacoes_consumo` | Interações do tipo início, visualização ou conclusão |
+| `conclusoes` | Interações do tipo conclusão |
+| `taxa_conclusao` | `conclusoes / interacoes_consumo`, com 4 casas decimais (nula se não houver consumo) |
+| `percentual_conclusao_medio` | Média de `percentual_conclusao`, com 2 casas decimais |
+| `tempo_consumido_total` | Soma de `tempo_consumido`, na unidade da fonte |
+| `curtidas`, `compartilhamentos` | Contagem por tipo de interação |
+| `avaliacoes`, `avaliacao_media` | Quantidade e média das avaliações atribuídas (nulas ignoradas) |
+| `id_execucao`, `runtime` | Auditoria: execução e runtime que gerou a linha |
+
+Etapas do pipeline:
+
+1. `ReadFromParquet` lê só as colunas necessárias, aproveitando o formato colunar.
+2. O catálogo vira um *side input* (`conteudo_id → categoria`).
+3. Um `ParDo` gera as chaves. Interações sem conteúdo no catálogo entram como
+   "Não catalogado" e são contadas na métrica `interacoes_sem_categoria`.
+4. `CombinePerKey` aplica uma `CombineFn` associativa. Cada worker pré-agrega
+   seus dados e o runtime une os acumuladores parciais.
+5. `WriteToParquet` grava o resultado.
+
+A regra foi conferida contra um cálculo independente em pandas, e as 64 linhas
+bateram. A única diferença foi de arredondamento: um valor exatamente em x,xx5,
+em que o `round` do Python está correto.
+
+### Runtimes
+
+| Runtime | Como executa |
+|---|---|
+| DirectRunner | Local. No Beam 2.76, o DirectRunner do Python delega a execução ao **Prism**, o runner local do Beam, que o SDK baixa em `~/.apache_beam/cache` |
+| Spark | Cluster standalone em Docker (`beam/spark/docker-compose.yml`): 1 master e 2 workers de 2 cores e 1 GB cada. O pipeline vai pelo `PortableRunner` ao job server do Beam, que é o driver Spark. Os executores rodam o código Python em *worker pools* do Beam (ambiente `EXTERNAL`) |
+
+```bash
+# DirectRunner
+.venv/Scripts/python beam/pipeline.py
+
+# Spark
+docker compose -f beam/spark/docker-compose.yml up -d        # UI do Spark: http://localhost:8090
+.venv/Scripts/python beam/pipeline.py --runner PortableRunner \
+    --job_endpoint localhost:8099 --artifact_endpoint localhost:8098 \
+    --environment_type EXTERNAL --environment_config localhost:50000 \
+    --environment_cache_millis 60000 --rotulo spark
+
+# Comparação dos runtimes (gera beam/evidencias/comparacao_runtimes.md)
+.venv/Scripts/python beam/comparar_runtimes.py
+```
+
+Parâmetros próprios do pipeline: `--entrada` (padrão `dados/silver/parquet`),
+`--saida` (padrão `dados/gold/engajamento_categoria_mensal`), `--id-execucao`
+(ou a variável `ID_EXECUCAO`) e `--rotulo`. Os demais argumentos são opções do
+Beam. Cada execução grava `beam/evidencias/execucao_<runtime>_<linhas>.json`,
+com estado, duração, volume de entrada e saída, métricas, opções e versões.
+
+Versões: Apache Beam 2.76.0 (SDK Python 3.13), Spark 3.5.0 (Scala 2.12), job
+server `apache/beam_spark3_job_server:2.76.0` (Java 11).
+
+### Decisões de configuração do cluster
+
+- **Mesma versão do Spark do job server:** o cluster usa Spark 3.5.0, a mesma
+  versão empacotada no job server do Beam 2.76.0.
+- **Worker pool acoplado a cada worker Spark** (`network_mode: service:...`):
+  o executor e o processo Python do Beam se conectam por `localhost`.
+- **Jar do Beam à frente no classpath dos executores**
+  (`spark.executor.extraClassPath`):
+  - O jar do Beam precisa de Guava 33, e o Spark traz Guava 14. Sem esse
+    ajuste, a primeira tarefa de cada executor falha com `NoSuchMethodError`
+    e só passa na nova tentativa.
+  - A alternativa `spark.executor.userClassPathFirst` quebra a desserialização
+    das tarefas do Spark.
+- **`--environment_cache_millis 60000`:** mantém o processo Python vivo entre
+  estágios do Spark. Sem isso, o Beam recria o ambiente a cada estágio, com
+  11 a 17 s por partida, e a execução levava 223 s em vez de cerca de 40 s.
+- **`RUN_PYTHON_SDK_IN_DEFAULT_ENVIRONMENT=1`:** o worker usa o Python da
+  imagem em vez de criar um venv temporário por processo.
+
+### Medições (`beam/evidencias/comparacao_runtimes.md`)
+
+| Linhas de entrada | DirectRunner | Spark (2 workers, 4 cores) | Saídas iguais |
+|---:|---:|---:|---|
+| 1.000 (Silver real) | 1,4 s | 49,4 s | sim |
+| 100.000 (replicada, `beam/gerar_volume.py --fator 100`) | 2,3 s | 32,2 s | sim |
+
+Nos dois volumes, os runtimes produziram exatamente as mesmas 64 linhas.
+
+O Spark é mais lento neste volume porque quase todo o tempo é custo fixo de
+cada execução: iniciar a aplicação Spark, alocar executores, subir o Python do
+Beam e trafegar os dados entre JVM e Python. O processamento em si leva poucos
+segundos. O ganho do Spark aparece quando o volume não cabe em uma máquina ou
+quando mais workers dividem a leitura dos arquivos Parquet (1 tarefa por
+arquivo ou faixa de arquivo). A mesma regra, sem alteração de código, pode ir
+para um cluster maior só mudando as opções de execução, e essa é a razão de
+usar o Beam.
+
+### Limitações
+
+- **Cluster em uma máquina só:** os 2 workers rodam na mesma máquina, em
+  Docker, e competem por CPU e disco. Não há ganho real de paralelismo físico.
+- **Volume ampliado artificial:** os 100 mil registros são o recorte real
+  replicado, e dados repetidos favorecem compressão e cache.
+- **Tempos com partida a frio:** cada execução no Spark é uma nova aplicação,
+  então os tempos incluem a partida a frio dos executores e variam entre
+  execuções. A primeira execução após subir o cluster foi a mais lenta.
+- **Métricas tentadas no Spark:** o runner do Spark só informa métricas
+  *tentadas*. O script registra essas quando as *confirmadas* não existem.
+- **Dados locais:** os dados são lidos de um diretório local montado nos
+  containers, não de um sistema distribuído (HDFS ou S3). Todos os workers
+  enxergam o mesmo disco.

@@ -1,0 +1,36 @@
+{
+  "id_execucao": "08403098-f806-4fe0-8d7d-6c4f0196f7ab",
+  "runtime": "spark",
+  "runner": "PortableRunner",
+  "estado": "DONE",
+  "inicio": "2026-09-27T19:41:13",
+  "duracao_s": 32.21,
+  "entrada": {
+    "caminho": "dados/silver/parquet_x100",
+    "linhas": 100000,
+    "arquivos": 8
+  },
+  "saida": {
+    "caminho": "dados/gold/comparacao_runtimes/spark_100000",
+    "linhas": 64,
+    "arquivos": 1
+  },
+  "metricas": {
+    "interacoes_lidas": 100000,
+    "interacoes_sem_categoria": 0
+  },
+  "opcoes_beam": {
+    "runner": "PortableRunner",
+    "job_endpoint": "localhost:8099",
+    "artifact_endpoint": "localhost:8098",
+    "environment_type": "EXTERNAL",
+    "environment_config": "localhost:50000",
+    "environment_cache_millis": "60000"
+  },
+  "versoes": {
+    "python": "3.13.5",
+    "apache_beam": "2.76.0",
+    "pyarrow": "25.0.1",
+    "sistema": "Windows-11-10.0.26200-SP0"
+  }
+}
