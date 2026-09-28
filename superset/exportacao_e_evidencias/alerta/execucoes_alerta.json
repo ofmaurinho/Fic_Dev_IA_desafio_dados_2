@@ -1,0 +1,51 @@
+{
+  "alerta": {
+    "nome": "Conversão de recomendações abaixo de 5%",
+    "descricao": "Condição: taxa de conversão (%) das recomendações vigentes < 5. Ação esperada: a curadoria revisa os parâmetros do motor de recomendação (pesos de visualização, curtida e conclusão) e prioriza conteúdos com histórico de consumo na categoria do usuário.",
+    "crontab": "0 8 * * *",
+    "timezone": "America/Sao_Paulo",
+    "sql": "SELECT ROUND(100.0 * COUNT(*) FILTER (WHERE convertida) / NULLIF(COUNT(*), 0), 2)\n       AS taxa_conversao_pct\nFROM gold.fato_recomendacao\nWHERE geracao_vigente",
+    "condicao": "valor {\"op\": \"<\", \"threshold\": 5.0}",
+    "destinatarios": [
+      "{\"target\": \"curadoria@plataforma-educacional.example\"}"
+    ],
+    "formato": "TEXT"
+  },
+  "execucoes": [
+    {
+      "inicio": "2026-09-28T01:29:00.082207",
+      "fim": "2026-09-28T01:29:01.071764",
+      "estado": "Success",
+      "valor_avaliado": 2.6,
+      "erro": null
+    },
+    {
+      "inicio": "2026-09-28T01:28:00.105128",
+      "fim": "2026-09-28T01:28:00.108168",
+      "estado": "On Grace",
+      "valor_avaliado": 2.6,
+      "erro": "Alert fired during grace period."
+    },
+    {
+      "inicio": "2026-09-28T01:27:00.076560",
+      "fim": "2026-09-28T01:27:00.458988",
+      "estado": "Success",
+      "valor_avaliado": 2.6,
+      "erro": null
+    },
+    {
+      "inicio": "2026-09-28T01:26:00.087339",
+      "fim": "2026-09-28T01:26:00.097833",
+      "estado": "On Grace",
+      "valor_avaliado": 2.6,
+      "erro": "Alert fired during grace period."
+    },
+    {
+      "inicio": "2026-09-28T01:25:00.141387",
+      "fim": "2026-09-28T01:25:00.706566",
+      "estado": "Success",
+      "valor_avaliado": 2.6,
+      "erro": null
+    }
+  ]
+}
