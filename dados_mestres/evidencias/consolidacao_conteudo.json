@@ -1,0 +1,244 @@
+{
+  "id_execucao": "1c9f743c-9d14-4d55-8d69-393e88e3ef3e",
+  "data": "2026-09-27T21:04:54",
+  "resumo": {
+    "registros na fonte silver_catalogo": 1000,
+    "registros na fonte d1_postgres": 1000,
+    "conteudo_ids distintos": 1000,
+    "correspondências M1 (mesmo id nas duas fontes)": 1000,
+    "grupos de duplicatas M2": 3,
+    "registros absorvidos por M2": 3,
+    "conteúdos mestres": 997,
+    "identificadores mestres novos": 0,
+    "identificadores mestres reutilizados": 997,
+    "fusões de mestres existentes": 0,
+    "conflitos resolvidos entre fontes": 0,
+    "conflitos resolvidos entre duplicatas": 6,
+    "candidatos não fundidos": 8
+  },
+  "duplicatas": [
+    {
+      "conteudo_mestre_id": "CM-000042",
+      "titulo": "Solucionando Desafios do Dia a Dia em Monitoramento de Performance e Acompanhamento de Metas",
+      "membros": [
+        77,
+        124
+      ],
+      "conteudo_id_canonico": 77,
+      "conflitos": [
+        {
+          "conteudo_id": 77,
+          "atributo": "carga_horaria_min",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 77,
+              "valor": "72"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 124,
+              "valor": "89"
+            }
+          ],
+          "valor_escolhido": "89",
+          "regra_sobrevivencia": "registro publicado mais recentemente (versão vigente)"
+        },
+        {
+          "conteudo_id": 77,
+          "atributo": "data_publicacao",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 77,
+              "valor": "2024-01-30"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 124,
+              "valor": "2026-06-05"
+            }
+          ],
+          "valor_escolhido": "2024-01-30",
+          "regra_sobrevivencia": "data mais antiga (primeira publicação do conteúdo)"
+        }
+      ]
+    },
+    {
+      "conteudo_mestre_id": "CM-000051",
+      "titulo": "Melhores Práticas e Arquitetura de Processamento Distribuído com Apache Spark",
+      "membros": [
+        39,
+        480
+      ],
+      "conteudo_id_canonico": 39,
+      "conflitos": [
+        {
+          "conteudo_id": 39,
+          "atributo": "carga_horaria_min",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 39,
+              "valor": "17"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 480,
+              "valor": "29"
+            }
+          ],
+          "valor_escolhido": "29",
+          "regra_sobrevivencia": "registro publicado mais recentemente (versão vigente)"
+        },
+        {
+          "conteudo_id": 39,
+          "atributo": "data_publicacao",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 39,
+              "valor": "2024-02-08"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 480,
+              "valor": "2024-04-13"
+            }
+          ],
+          "valor_escolhido": "2024-02-08",
+          "regra_sobrevivencia": "data mais antiga (primeira publicação do conteúdo)"
+        }
+      ]
+    },
+    {
+      "conteudo_mestre_id": "CM-000076",
+      "titulo": "Princípios Essenciais e Arquitetura de Engenharia de Prompts e Agentes Inteligentes",
+      "membros": [
+        948,
+        455
+      ],
+      "conteudo_id_canonico": 948,
+      "conflitos": [
+        {
+          "conteudo_id": 948,
+          "atributo": "carga_horaria_min",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 948,
+              "valor": "28"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 455,
+              "valor": "16"
+            }
+          ],
+          "valor_escolhido": "16",
+          "regra_sobrevivencia": "registro publicado mais recentemente (versão vigente)"
+        },
+        {
+          "conteudo_id": 948,
+          "atributo": "data_publicacao",
+          "nivel": "entre_duplicatas",
+          "valores": [
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 948,
+              "valor": "2024-03-06"
+            },
+            {
+              "fonte": "silver_catalogo,d1_postgres",
+              "id_origem": 455,
+              "valor": "2026-01-07"
+            }
+          ],
+          "valor_escolhido": "2024-03-06",
+          "regra_sobrevivencia": "data mais antiga (primeira publicação do conteúdo)"
+        }
+      ]
+    }
+  ],
+  "candidatos_nao_fundidos": [
+    {
+      "conteudo_ids": [
+        552,
+        830
+      ],
+      "titulo": "Análise Prática e Demonstração de Previsão de Séries Temporais e Tendências",
+      "autor": "Eng. Vanessa Cristina Ramos",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        70,
+        702
+      ],
+      "titulo": "Construindo Aplicações Robustas com Integração de Conectores com SQLAlchemy e Psycopg3",
+      "autor": "Prof. Elmo Batista de Faria",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        235,
+        714
+      ],
+      "titulo": "Curso Completo de Auditoria e Monitoramento de Logs de Acesso: Da Teoria à Prática",
+      "autor": "Dra. Renata Figueiredo Melo",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        137,
+        878
+      ],
+      "titulo": "Curso Completo de Gestão de Metadados e Qualidade de Dados Mestres: Da Teoria à Prática",
+      "autor": "Dr. Marcelo Silveira Neves",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        94,
+        179
+      ],
+      "titulo": "Curso Completo de Storytelling com Dados para Apresentações Executivas: Da Teoria à Prática",
+      "autor": "Eng. Vanessa Cristina Ramos",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        267,
+        554
+      ],
+      "titulo": "Especialização em Controle de Acesso Baseado em Papéis (RBAC) com Projetos Práticos",
+      "autor": "Eng. Bruno César Pires",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        249,
+        417
+      ],
+      "titulo": "Guia Definitivo e Boas Práticas sobre Conteinerização com Docker e Docker Compose",
+      "autor": "Prof. Gabriel Santana Ribeiro",
+      "motivo": "diferem em nivel e descricao"
+    },
+    {
+      "conteudo_ids": [
+        452,
+        736
+      ],
+      "titulo": "Tech Talk Ep. 138: Melhores Práticas em Métricas de Avaliação de Modelos Preditivos",
+      "autor": "Profa. Beatriz Helena Nogueira",
+      "motivo": "diferem em nivel e descricao"
+    }
+  ],
+  "conflitos_entre_fontes": [],
+  "fusoes": []
+}
