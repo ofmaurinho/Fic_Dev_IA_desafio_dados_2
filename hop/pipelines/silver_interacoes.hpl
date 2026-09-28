@@ -76,12 +76,12 @@
       </condition>
     </compare>
     <send_true_to>Validar valores permitidos</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - campos obrigatórios</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>144</yloc>
+      <xloc>320</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -240,12 +240,12 @@
       </condition>
     </compare>
     <send_true_to>Validar conteúdo</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - valores permitidos</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>176</yloc>
+      <xloc>544</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -265,8 +265,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>288</yloc>
+      <xloc>704</xloc>
+      <yloc>528</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -298,8 +298,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>224</yloc>
+      <xloc>704</xloc>
+      <yloc>368</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -330,12 +330,12 @@
       </condition>
     </compare>
     <send_true_to>Validar usuário</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - referência conteúdo</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>272</yloc>
+      <xloc>864</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -355,8 +355,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>432</yloc>
+      <xloc>1008</xloc>
+      <yloc>528</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -388,8 +388,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>304</yloc>
+      <xloc>1008</xloc>
+      <yloc>368</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -420,12 +420,12 @@
       </condition>
     </compare>
     <send_true_to>Remover referências</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - referência usuário</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>336</yloc>
+      <xloc>1168</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -448,7 +448,7 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>816</xloc>
+      <xloc>1344</xloc>
       <yloc>368</yloc>
     </GUI>
     <description/>
@@ -505,8 +505,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>384</yloc>
+      <xloc>1504</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -542,8 +542,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>400</yloc>
+      <xloc>1696</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -589,55 +589,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>400</yloc>
-    </GUI>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-  </transform>
-  <transform>
-    <type>TextFileOutput</type>
-    <name>Quarentena</name>
-    <compression>None</compression>
-    <create_parent_folder>Y</create_parent_folder>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <encoding>UTF-8</encoding>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <schema_definition/>
-    <ignore_fields>N</ignore_fields>
-    <file>
-      <name>${QUARENTENA_HOME}/interacoes.json</name>
-      <do_not_open_new_file_init>Y</do_not_open_new_file_init>
-      <extension/>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery/>
-    </file>
-    <fields/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-    <GUI>
-      <xloc>672</xloc>
-      <yloc>112</yloc>
+      <xloc>1888</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -659,10 +612,18 @@
     <addresultfile>N</addresultfile>
     <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
     <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>N</ignoreMissingPath>
+    <ignoreMissingPath>Y</ignoreMissingPath>
     <readurl>N</readurl>
     <removeSourceField>N</removeSourceField>
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <shortFileFieldName/>
+    <extensionFieldName/>
+    <pathFieldName/>
+    <sizeFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
     <files>
       <file>
         <name>${BRONZE_HOME}/interacoes.json</name>
@@ -807,8 +768,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
+      <xloc>32</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -843,8 +804,320 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>112</yloc>
+      <xloc>144</xloc>
+      <yloc>368</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - campos obrigatórios</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CAMPOS_OBRIGATORIOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Campo obrigatório não informado</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>208</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - valores permitidos</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>VALORES_PERMITIDOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Valor fora dos valores permitidos</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>256</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - referência conteúdo</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>REFERENCIA_CONTEUDO</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>conteudo_id não encontrado na tabela conteudo</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>256</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - referência usuário</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>REFERENCIA_USUARIO</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>usuario_id não encontrado na tabela usuario</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>256</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - duplicidade</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>DUPLICIDADE</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Duplicidade de usuario_id + conteudo_id + tipo_interacao + data_hora</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>1696</xloc>
+      <yloc>240</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SystemInfo</type>
+    <name>Obtem data e hora do erro</name>
+    <fields>
+      <field>
+        <name>data_erro</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>144</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>JsonOutput</type>
+    <name>Quarentena 2</name>
+    <operation_type>writetofile</operation_type>
+    <encoding>UTF-8</encoding>
+    <outputValue>outputValue</outputValue>
+    <jsonBloc>data</jsonBloc>
+    <nrRowsInBloc>0</nrRowsInBloc>
+    <fields>
+      <field>
+        <name>avaliacao_atribuida</name>
+        <element>avaliacao_atribuida</element>
+      </field>
+      <field>
+        <name>conteudo_id</name>
+        <element>conteudo_id</element>
+      </field>
+      <field>
+        <name>data_hora</name>
+        <element>data_hora</element>
+      </field>
+      <field>
+        <name>data_ingestao</name>
+        <element>data_ingestao</element>
+      </field>
+      <field>
+        <name>id_execucao</name>
+        <element>id_execucao</element>
+      </field>
+      <field>
+        <name>origem</name>
+        <element>origem</element>
+      </field>
+      <field>
+        <name>percentual_conclusao</name>
+        <element>percentual_conclusao</element>
+      </field>
+      <field>
+        <name>tempo_consumido</name>
+        <element>tempo_consumido</element>
+      </field>
+      <field>
+        <name>tipo_interacao</name>
+        <element>tipo_interacao</element>
+      </field>
+      <field>
+        <name>usuario_id</name>
+        <element>usuario_id</element>
+      </field>
+      <field>
+        <name>regra_violada</name>
+        <element>regra_violada</element>
+      </field>
+      <field>
+        <name>mensagem_erro</name>
+        <element>mensagem_erro</element>
+      </field>
+      <field>
+        <name>data_erro</name>
+        <element>data_erro</element>
+      </field>
+    </fields>
+    <addToResult>N</addToResult>
+    <fileAppended>N</fileAppended>
+    <createParentFolder>Y</createParentFolder>
+    <doNotOpenNewFileInit>Y</doNotOpenNewFileInit>
+    <transformNrInFilename>N</transformNrInFilename>
+    <partNrInFilename>N</partNrInFilename>
+    <dateInFilename>N</dateInFilename>
+    <timeInFilename>N</timeInFilename>
+    <extension/>
+    <fileName>${QUARENTENA_HOME}/interacoes.json</fileName>
+    <fileAsCommand>N</fileAsCommand>
+    <specifyingFormat>N</specifyingFormat>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>32</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -856,11 +1129,6 @@
     <hop>
       <from>Validar campos obrigatórios</from>
       <to>Validar valores permitidos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Validar campos obrigatórios</from>
-      <to>Quarentena</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -904,16 +1172,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Referência conteúdo</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Referência usuário</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Ordenar linhas</from>
       <to>linhas únicas</to>
       <enabled>Y</enabled>
@@ -921,16 +1179,6 @@
     <hop>
       <from>linhas únicas</from>
       <to>Silver válido</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Validar valores permitidos</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>linhas únicas</from>
-      <to>Quarentena</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -943,13 +1191,68 @@
       <to>Validar campos obrigatórios</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Registrar erro - campos obrigatórios</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - valores permitidos</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - referência conteúdo</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - referência usuário</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - duplicidade</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>linhas únicas</from>
+      <to>Registrar erro - duplicidade</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar campos obrigatórios</from>
+      <to>Registrar erro - campos obrigatórios</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar valores permitidos</from>
+      <to>Registrar erro - valores permitidos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Referência conteúdo</from>
+      <to>Registrar erro - referência conteúdo</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Referência usuário</from>
+      <to>Registrar erro - referência usuário</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtem data e hora do erro</from>
+      <to>Quarentena 2</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <notepads/>
   <attributes/>
   <transform_error_handling>
     <error>
       <source_transform>linhas únicas</source_transform>
-      <target_transform>Quarentena</target_transform>
+      <target_transform>Registrar erro - duplicidade</target_transform>
       <is_enabled>Y</is_enabled>
       <nr_valuename>error_row</nr_valuename>
       <descriptions_valuename>error_description</descriptions_valuename>

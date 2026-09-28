@@ -168,8 +168,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>144</yloc>
+      <xloc>112</xloc>
+      <yloc>272</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -254,12 +254,12 @@
       </condition>
     </compare>
     <send_true_to>Validar valores permitidos</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - campos obrigatórios</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>160</yloc>
+      <xloc>288</xloc>
+      <yloc>288</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -305,8 +305,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>752</xloc>
-      <yloc>224</yloc>
+      <xloc>784</xloc>
+      <yloc>352</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -352,8 +352,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>64</yloc>
+      <xloc>464</xloc>
+      <yloc>32</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -436,8 +436,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>176</yloc>
+      <xloc>464</xloc>
+      <yloc>304</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -461,8 +461,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>208</yloc>
+      <xloc>688</xloc>
+      <yloc>336</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -493,8 +493,152 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>192</yloc>
+      <xloc>576</xloc>
+      <yloc>320</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - campos obrigatórios</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CAMPOS_OBRIGATORIOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Campo obrigatório não informado</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>176</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SystemInfo</type>
+    <name>Obtém data e hora do erro</name>
+    <fields>
+      <field>
+        <name>data_erro</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>96</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - valores permitidos</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>VALORES_PERMITIDOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Valor fora dos valores permitidos</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>208</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - duplicidade</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>DUPLICIDADE</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Duplicidade de conteudo_id</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>224</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -510,22 +654,7 @@
     </hop>
     <hop>
       <from>Validar campos obrigatórios</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Validar campos obrigatórios</from>
       <to>Validar valores permitidos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Validar valores permitidos</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Validar valores permitidos</from>
-      <to>Ordenar linhas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -534,13 +663,48 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Validar duplicidade</from>
-      <to>Silver válido</to>
+      <from>Validar campos obrigatórios</from>
+      <to>Registrar erro - campos obrigatórios</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtém data e hora do erro</from>
+      <to>Quarentena</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - campos obrigatórios</from>
+      <to>Obtém data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - valores permitidos</from>
+      <to>Obtém data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - duplicidade</from>
+      <to>Obtém data e hora do erro</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Validar duplicidade</from>
-      <to>Quarentena</to>
+      <to>Registrar erro - duplicidade</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar valores permitidos</from>
+      <to>Registrar erro - valores permitidos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar valores permitidos</from>
+      <to>Ordenar linhas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar duplicidade</from>
+      <to>Silver válido</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -549,7 +713,7 @@
   <transform_error_handling>
     <error>
       <source_transform>Validar duplicidade</source_transform>
-      <target_transform>Quarentena</target_transform>
+      <target_transform>Registrar erro - duplicidade</target_transform>
       <is_enabled>Y</is_enabled>
       <nr_valuename>error_row</nr_valuename>
       <descriptions_valuename>error_description</descriptions_valuename>
