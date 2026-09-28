@@ -1,0 +1,431 @@
+{
+  "execucao": {
+    "id_execucao": "045645df-c124-498f-a235-715ff16bae79",
+    "inicio": "2026-09-27 19:56:47.879731",
+    "fim": "2026-09-27 19:56:48.139111",
+    "status": "falha",
+    "gold_liberada": false,
+    "origem_dados": "simulacao",
+    "silver_home": "(diretório temporário da simulação)"
+  },
+  "resultados": [
+    {
+      "id_regra": "QD01",
+      "fonte": "catalogo",
+      "dimensao": "Completude",
+      "descricao": "Campos obrigatórios preenchidos na Silver",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 2,
+      "metrica": 99.8,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Corrigir a regra de campos obrigatórios da Silver e reprocessar.",
+      "amostra_violacoes": [
+        {
+          "registro": "conteudo_id=11",
+          "mensagem": "titulo vazio"
+        },
+        {
+          "registro": "conteudo_id=12",
+          "mensagem": "titulo vazio"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD01",
+      "fonte": "interacoes",
+      "dimensao": "Completude",
+      "descricao": "Campos obrigatórios preenchidos na Silver",
+      "severidade": "critica",
+      "registros_avaliados": 1005,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Corrigir a regra de campos obrigatórios da Silver e reprocessar.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD01",
+      "fonte": "comentarios",
+      "dimensao": "Completude",
+      "descricao": "Campos obrigatórios preenchidos na Silver",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Corrigir a regra de campos obrigatórios da Silver e reprocessar.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD02",
+      "fonte": "catalogo",
+      "dimensao": "Validade",
+      "descricao": "Formato, domínio e faixa dos valores (tipos, níveis, percentuais, notas, datas não futuras)",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 1,
+      "metrica": 99.9,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Enviar os registros inválidos à quarentena e reprocessar.",
+      "amostra_violacoes": [
+        {
+          "registro": "conteudo_id=13",
+          "mensagem": "nivel fora do domínio"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD02",
+      "fonte": "interacoes",
+      "dimensao": "Validade",
+      "descricao": "Formato, domínio e faixa dos valores (tipos, níveis, percentuais, notas, datas não futuras)",
+      "severidade": "critica",
+      "registros_avaliados": 1005,
+      "registros_violados": 3,
+      "metrica": 99.701,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Enviar os registros inválidos à quarentena e reprocessar.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=4|conteudo_id=535|tipo_interacao=avaliação|data_hora=2026-08-03T10:50:46",
+          "mensagem": "percentual_conclusao fora de 0–100"
+        },
+        {
+          "registro": "usuario_id=5|conteudo_id=14|tipo_interacao=visualização|data_hora=2026-04-07T22:56:30",
+          "mensagem": "percentual_conclusao fora de 0–100"
+        },
+        {
+          "registro": "usuario_id=5|conteudo_id=72|tipo_interacao=visualização|data_hora=2026-03-21T15:00:04",
+          "mensagem": "percentual_conclusao fora de 0–100"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD02",
+      "fonte": "comentarios",
+      "dimensao": "Validade",
+      "descricao": "Formato, domínio e faixa dos valores (tipos, níveis, percentuais, notas, datas não futuras)",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 1,
+      "metrica": 99.9,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Enviar os registros inválidos à quarentena e reprocessar.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=1|conteudo_id=914|data=2026-07-15",
+          "mensagem": "avaliacao fora de 1–5"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD03",
+      "fonte": "catalogo",
+      "dimensao": "Unicidade",
+      "descricao": "Chave de negócio única por fonte",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Revisar a deduplicação da Silver e reprocessar.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD03",
+      "fonte": "interacoes",
+      "dimensao": "Unicidade",
+      "descricao": "Chave de negócio única por fonte",
+      "severidade": "critica",
+      "registros_avaliados": 1005,
+      "registros_violados": 5,
+      "metrica": 99.502,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Revisar a deduplicação da Silver e reprocessar.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=8|conteudo_id=737|tipo_interacao=visualização|data_hora=2026-05-02T11:13:24",
+          "mensagem": "chave duplicada (usuario_id, conteudo_id, tipo_interacao, data_hora)"
+        },
+        {
+          "registro": "usuario_id=8|conteudo_id=892|tipo_interacao=conclusão|data_hora=2026-01-11T18:51:51",
+          "mensagem": "chave duplicada (usuario_id, conteudo_id, tipo_interacao, data_hora)"
+        },
+        {
+          "registro": "usuario_id=8|conteudo_id=945|tipo_interacao=início|data_hora=2026-07-08T18:27:10",
+          "mensagem": "chave duplicada (usuario_id, conteudo_id, tipo_interacao, data_hora)"
+        },
+        {
+          "registro": "usuario_id=8|conteudo_id=948|tipo_interacao=início|data_hora=2026-01-28T21:14:30",
+          "mensagem": "chave duplicada (usuario_id, conteudo_id, tipo_interacao, data_hora)"
+        },
+        {
+          "registro": "usuario_id=9|conteudo_id=325|tipo_interacao=visualização|data_hora=2026-07-28T14:15:52",
+          "mensagem": "chave duplicada (usuario_id, conteudo_id, tipo_interacao, data_hora)"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD03",
+      "fonte": "comentarios",
+      "dimensao": "Unicidade",
+      "descricao": "Chave de negócio única por fonte",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Revisar a deduplicação da Silver e reprocessar.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD04",
+      "fonte": "interacoes",
+      "dimensao": "Integridade referencial",
+      "descricao": "conteudo_id existe no catálogo Silver e usuario_id existe em public.usuario",
+      "severidade": "critica",
+      "registros_avaliados": 1005,
+      "registros_violados": 2,
+      "metrica": 99.801,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Colocar os órfãos em quarentena ou carregar o cadastro faltante.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=5|conteudo_id=99999|tipo_interacao=conclusão|data_hora=2026-01-22T07:34:56",
+          "mensagem": "conteudo_id ausente no catálogo Silver"
+        },
+        {
+          "registro": "usuario_id=5|conteudo_id=99999|tipo_interacao=início|data_hora=2026-01-25T01:41:29",
+          "mensagem": "conteudo_id ausente no catálogo Silver"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD04",
+      "fonte": "comentarios",
+      "dimensao": "Integridade referencial",
+      "descricao": "conteudo_id existe no catálogo Silver e usuario_id existe em public.usuario",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Colocar os órfãos em quarentena ou carregar o cadastro faltante.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD05",
+      "fonte": "interacoes",
+      "dimensao": "Consistência",
+      "descricao": "Tipo da interação coerente com as medidas (conclusão ⇔ 100%; avaliação ⇒ nota)",
+      "severidade": "critica",
+      "registros_avaliados": 1005,
+      "registros_violados": 2,
+      "metrica": 99.801,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Revisar a origem das interações; a taxa de conclusão ficaria incorreta.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=1|conteudo_id=179|tipo_interacao=conclusão|data_hora=2026-03-15T11:56:38",
+          "mensagem": "conclusão sem percentual 100 ou 100% sem conclusão"
+        },
+        {
+          "registro": "usuario_id=1|conteudo_id=890|tipo_interacao=conclusão|data_hora=2026-06-19T16:08:34",
+          "mensagem": "conclusão sem percentual 100 ou 100% sem conclusão"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD06",
+      "fonte": "interacoes",
+      "dimensao": "Consistência",
+      "descricao": "Evento (interação ou comentário) não anterior à publicação do conteúdo",
+      "severidade": "alerta",
+      "registros_avaliados": 1005,
+      "registros_violados": 77,
+      "metrica": 92.338,
+      "operador": ">=",
+      "limite": 95,
+      "aprovado": false,
+      "acao": "Publicar a Gold com ressalva e acionar a curadoria do catálogo para revisar as datas.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=1|conteudo_id=179|tipo_interacao=conclusão|data_hora=2026-03-15T11:56:38",
+          "mensagem": "data_hora anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=2|conteudo_id=178|tipo_interacao=visualização|data_hora=2026-02-26T08:25:23",
+          "mensagem": "data_hora anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=3|conteudo_id=229|tipo_interacao=visualização|data_hora=2026-04-11T17:41:26",
+          "mensagem": "data_hora anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=5|conteudo_id=72|tipo_interacao=visualização|data_hora=2026-03-21T15:00:04",
+          "mensagem": "data_hora anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=5|conteudo_id=179|tipo_interacao=início|data_hora=2026-01-25T16:02:13",
+          "mensagem": "data_hora anterior à publicação do conteúdo"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD06",
+      "fonte": "comentarios",
+      "dimensao": "Consistência",
+      "descricao": "Evento (interação ou comentário) não anterior à publicação do conteúdo",
+      "severidade": "alerta",
+      "registros_avaliados": 1000,
+      "registros_violados": 52,
+      "metrica": 94.8,
+      "operador": ">=",
+      "limite": 95,
+      "aprovado": false,
+      "acao": "Publicar a Gold com ressalva e acionar a curadoria do catálogo para revisar as datas.",
+      "amostra_violacoes": [
+        {
+          "registro": "usuario_id=4|conteudo_id=745|data=2026-01-19",
+          "mensagem": "data anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=4|conteudo_id=857|data=2026-03-01",
+          "mensagem": "data anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=7|conteudo_id=619|data=2026-02-18",
+          "mensagem": "data anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=9|conteudo_id=973|data=2026-02-03",
+          "mensagem": "data anterior à publicação do conteúdo"
+        },
+        {
+          "registro": "usuario_id=12|conteudo_id=377|data=2026-01-24",
+          "mensagem": "data anterior à publicação do conteúdo"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD07",
+      "fonte": "catalogo",
+      "dimensao": "Consistência",
+      "descricao": "Conservação de volume: Bronze = Silver + quarentena",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Há registros perdidos ou criados entre as camadas; revisar o pipeline Silver.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD07",
+      "fonte": "interacoes",
+      "dimensao": "Consistência",
+      "descricao": "Conservação de volume: Bronze = Silver + quarentena",
+      "severidade": "critica",
+      "registros_avaliados": 1080,
+      "registros_violados": 5,
+      "metrica": 99.537,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": false,
+      "acao": "Bloquear a publicação da Gold. Há registros perdidos ou criados entre as camadas; revisar o pipeline Silver.",
+      "amostra_violacoes": [
+        {
+          "registro": "interacoes",
+          "mensagem": "bronze=1080, silver=1005, quarentena=80"
+        }
+      ]
+    },
+    {
+      "id_regra": "QD07",
+      "fonte": "comentarios",
+      "dimensao": "Consistência",
+      "descricao": "Conservação de volume: Bronze = Silver + quarentena",
+      "severidade": "critica",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 100.0,
+      "operador": ">=",
+      "limite": 100,
+      "aprovado": true,
+      "acao": "Bloquear a publicação da Gold. Há registros perdidos ou criados entre as camadas; revisar o pipeline Silver.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD08",
+      "fonte": "catalogo",
+      "dimensao": "Validade",
+      "descricao": "Taxa de rejeição para a quarentena",
+      "severidade": "alerta",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 0.0,
+      "operador": "<=",
+      "limite": 5,
+      "aprovado": true,
+      "acao": "Publicar a Gold com ressalva, analisar a quarentena e reprocessar os corrigidos.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD08",
+      "fonte": "interacoes",
+      "dimensao": "Validade",
+      "descricao": "Taxa de rejeição para a quarentena",
+      "severidade": "alerta",
+      "registros_avaliados": 1080,
+      "registros_violados": 80,
+      "metrica": 7.407,
+      "operador": "<=",
+      "limite": 5,
+      "aprovado": false,
+      "acao": "Publicar a Gold com ressalva, analisar a quarentena e reprocessar os corrigidos.",
+      "amostra_violacoes": []
+    },
+    {
+      "id_regra": "QD08",
+      "fonte": "comentarios",
+      "dimensao": "Validade",
+      "descricao": "Taxa de rejeição para a quarentena",
+      "severidade": "alerta",
+      "registros_avaliados": 1000,
+      "registros_violados": 0,
+      "metrica": 0.0,
+      "operador": "<=",
+      "limite": 5,
+      "aprovado": true,
+      "acao": "Publicar a Gold com ressalva, analisar a quarentena e reprocessar os corrigidos.",
+      "amostra_violacoes": []
+    }
+  ]
+}

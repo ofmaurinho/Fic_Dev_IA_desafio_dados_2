@@ -127,9 +127,14 @@ CATALOGO = ContratoSilver(
 CONTRATOS = {c.nome: c for c in (INTERACOES, COMENTARIOS, CATALOGO)}
 
 
-def ler_silver_csv(contrato, caminho=None):
-    """Lê o arquivo Silver e devolve um DataFrame com os tipos do contrato."""
+def ler_silver_csv(contrato, caminho=None, tolerante=False):
+    """Lê o arquivo Silver e devolve um DataFrame com os tipos do contrato.
+
+    Com tolerante=True, valores fora do formato viram nulos em vez de erro,
+    para que os testes de qualidade possam contá-los como violações.
+    """
     caminho = caminho or contrato.caminho
+    erros = "coerce" if tolerante else "raise"
     df = pd.read_csv(
         caminho,
         sep=contrato.separador,
@@ -149,12 +154,17 @@ def ler_silver_csv(contrato, caminho=None):
     for campo in contrato.esquema:
         coluna = df[campo.name]
         if campo.name in contrato.formatos_data:
-            convertida = pd.to_datetime(coluna, format=contrato.formatos_data[campo.name])
+            convertida = pd.to_datetime(
+                coluna, format=contrato.formatos_data[campo.name], errors=erros
+            )
             df[campo.name] = convertida.dt.date if pa.types.is_date(campo.type) else convertida
         elif pa.types.is_integer(campo.type):
-            df[campo.name] = pd.to_numeric(coluna).astype("Int64")
+            numeros = pd.to_numeric(coluna, errors=erros)
+            if tolerante:
+                numeros = numeros.where(numeros % 1 == 0)
+            df[campo.name] = numeros.astype("Int64")
         elif pa.types.is_floating(campo.type):
-            df[campo.name] = pd.to_numeric(coluna)
+            df[campo.name] = pd.to_numeric(coluna, errors=erros)
 
     return df[esperadas]
 

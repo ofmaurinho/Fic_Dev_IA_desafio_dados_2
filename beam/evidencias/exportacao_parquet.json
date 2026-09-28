@@ -1,7 +1,7 @@
 {
-  "id_execucao": "c96c2e17-f07d-4d37-8553-4237c7ff0bf9",
-  "inicio": "2026-09-27T19:17:42",
-  "fim": "2026-09-27T19:17:43",
+  "id_execucao": "52fef66a-9d71-45ae-833d-1c2b511e0783",
+  "inicio": "2026-09-27T19:54:14",
+  "fim": "2026-09-27T19:54:14",
   "status": "sucesso",
   "compressao": "snappy",
   "versoes": {
@@ -27,7 +27,7 @@
         "ano_mes=2026-08"
       ],
       "bytes": 56573,
-      "duracao_s": 0.14
+      "duracao_s": 0.181
     },
     {
       "conjunto": "comentarios",
@@ -47,7 +47,7 @@
         "ano_mes=2026-08"
       ],
       "bytes": 64246,
-      "duracao_s": 0.143
+      "duracao_s": 0.16
     },
     {
       "conjunto": "catalogo",
@@ -58,7 +58,7 @@
       "arquivos": 1,
       "particoes": [],
       "bytes": 61492,
-      "duracao_s": 0.055
+      "duracao_s": 0.039
     }
   ],
   "falhas": []
