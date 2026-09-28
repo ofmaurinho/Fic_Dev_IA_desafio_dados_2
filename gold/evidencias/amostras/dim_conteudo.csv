@@ -1,0 +1,11 @@
+conteudo_mestre_id,conteudo_id_canonico,titulo,tipo,categoria,nivel,carga_horaria_min,faixa_duracao,data_publicacao,ano_publicacao,autor,qtd_registros_origem
+CM-000001,878,Curso Completo de Gestão de Metadados e Qualidade de Dados Mestres: Da Teoria à Prática,Curso,Segurança & Governança,Básico,425,longa,2024-01-01,2024,Dr. Marcelo Silveira Neves,2
+CM-000002,695,Deep Dive Ep. 115: Casos de Sucesso em Tipagem Estática e Boas Práticas com Mypy,Podcast,Programação & Software,Avançado,60,média,2024-01-03,2024,Prof. Diego Henrique Barros,2
+CM-000003,836,Papo de Dados Ep. 20: Desvendando Escalabilidade e Gestão de Custos em Cloud,Podcast,DevOps & Cloud,Avançado,82,média,2024-01-05,2024,Eng. Thiago Pinheiro Borges,2
+CM-000004,837,Tech Talk Ep. 138: Melhores Práticas em Modelagem Relacional Avançada no PostgreSQL,Podcast,Banco de Dados,Básico,42,média,2024-01-05,2024,Eng. Vanessa Cristina Ramos,2
+CM-000005,47,Arquitetura & Código Ep. 40: Inovações em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,87,média,2024-01-06,2024,Eng. Thiago Pinheiro Borges,2
+CM-000006,190,"Formação Prática em Métricas de Engajamento, Retenção e Conversão: Fundamentos e Aplicação",Curso,Business Intelligence,Básico,262,longa,2024-01-06,2024,Eng. Felipe Siqueira Castro,2
+CM-000007,191,Curso Completo de Interpretabilidade de Modelos com SHAP e LIME: Da Teoria à Prática,Curso,Ciência de Dados,Básico,492,longa,2024-01-06,2024,Profa. Beatriz Helena Nogueira,2
+CM-000008,796,Guia Rápido e Hands-on: Estruturas de Dados e Algoritmos Eficientes,Vídeo,Programação & Software,Avançado,68,média,2024-01-06,2024,Dr. André Luiz Carvalho,2
+CM-000009,84,Melhores Práticas e Arquitetura de Infraestrutura como Código com Terraform,Vídeo,DevOps & Cloud,Avançado,105,média,2024-01-08,2024,Dra. Camila Guimarães Rocha,2
+CM-000010,479,Papo de Dados Ep. 85: Desvendando Pipelines de CI/CD para Engenharia de Dados,Podcast,DevOps & Cloud,Intermediário,26,curta,2024-01-09,2024,Profa. Larissa Duarte Toledo,2

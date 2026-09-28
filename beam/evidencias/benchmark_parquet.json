@@ -1,0 +1,173 @@
+{
+  "id_execucao": "db1bf214-2001-483a-ae3c-1d71415ad5e3",
+  "data": "2026-09-27T19:16:12",
+  "ambiente": {
+    "sistema": "Windows-11-10.0.26200-SP0",
+    "processador": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "cpus": 12,
+    "python": "3.13.5",
+    "pyarrow": "25.0.1",
+    "pandas": "3.0.6"
+  },
+  "compressao": "snappy",
+  "repeticoes": 5,
+  "mes_seletivo": "2026-03",
+  "resultados": [
+    {
+      "fator": 1,
+      "linhas": 1000,
+      "arquivos_particionado": 8,
+      "bytes": {
+        "csv": 130479,
+        "parquet_particionado": 56573,
+        "parquet_unico": 24181
+      },
+      "tempos": {
+        "completa": {
+          "csv": {
+            "linhas": 1000,
+            "mediana_s": 0.0096,
+            "min_s": 0.0094,
+            "max_s": 0.0106
+          },
+          "parquet_particionado": {
+            "linhas": 1000,
+            "mediana_s": 0.0079,
+            "min_s": 0.007,
+            "max_s": 0.0101
+          },
+          "parquet_unico": {
+            "linhas": 1000,
+            "mediana_s": 0.0026,
+            "min_s": 0.0025,
+            "max_s": 0.0027
+          }
+        },
+        "seletiva": {
+          "csv": {
+            "linhas": 124,
+            "mediana_s": 0.006,
+            "min_s": 0.0051,
+            "max_s": 0.0072
+          },
+          "parquet_particionado": {
+            "linhas": 124,
+            "mediana_s": 0.0038,
+            "min_s": 0.0033,
+            "max_s": 0.0045
+          },
+          "parquet_unico": {
+            "linhas": 124,
+            "mediana_s": 0.0023,
+            "min_s": 0.0023,
+            "max_s": 0.0026
+          }
+        }
+      }
+    },
+    {
+      "fator": 100,
+      "linhas": 100000,
+      "arquivos_particionado": 8,
+      "bytes": {
+        "csv": 13230437,
+        "parquet_particionado": 669424,
+        "parquet_unico": 254495
+      },
+      "tempos": {
+        "completa": {
+          "csv": {
+            "linhas": 100000,
+            "mediana_s": 0.387,
+            "min_s": 0.3783,
+            "max_s": 0.3924
+          },
+          "parquet_particionado": {
+            "linhas": 100000,
+            "mediana_s": 0.015,
+            "min_s": 0.0132,
+            "max_s": 0.019
+          },
+          "parquet_unico": {
+            "linhas": 100000,
+            "mediana_s": 0.0138,
+            "min_s": 0.0109,
+            "max_s": 0.0169
+          }
+        },
+        "seletiva": {
+          "csv": {
+            "linhas": 12400,
+            "mediana_s": 0.1325,
+            "min_s": 0.1315,
+            "max_s": 0.1399
+          },
+          "parquet_particionado": {
+            "linhas": 12400,
+            "mediana_s": 0.0048,
+            "min_s": 0.0044,
+            "max_s": 0.0056
+          },
+          "parquet_unico": {
+            "linhas": 12400,
+            "mediana_s": 0.0079,
+            "min_s": 0.0072,
+            "max_s": 0.0088
+          }
+        }
+      }
+    },
+    {
+      "fator": 1000,
+      "linhas": 1000000,
+      "arquivos_particionado": 8,
+      "bytes": {
+        "csv": 133302421,
+        "parquet_particionado": 6220432,
+        "parquet_unico": 2768257
+      },
+      "tempos": {
+        "completa": {
+          "csv": {
+            "linhas": 1000000,
+            "mediana_s": 3.8182,
+            "min_s": 3.785,
+            "max_s": 3.8199
+          },
+          "parquet_particionado": {
+            "linhas": 1000000,
+            "mediana_s": 0.0892,
+            "min_s": 0.0857,
+            "max_s": 0.0969
+          },
+          "parquet_unico": {
+            "linhas": 1000000,
+            "mediana_s": 0.1047,
+            "min_s": 0.081,
+            "max_s": 0.112
+          }
+        },
+        "seletiva": {
+          "csv": {
+            "linhas": 124000,
+            "mediana_s": 1.1471,
+            "min_s": 1.1317,
+            "max_s": 1.1562
+          },
+          "parquet_particionado": {
+            "linhas": 124000,
+            "mediana_s": 0.0097,
+            "min_s": 0.0094,
+            "max_s": 0.0111
+          },
+          "parquet_unico": {
+            "linhas": 124000,
+            "mediana_s": 0.0432,
+            "min_s": 0.0409,
+            "max_s": 0.0444
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id_execucao": "52fef66a-9d71-45ae-833d-1c2b511e0783",
+  "inicio": "2026-09-27T19:54:14",
+  "fim": "2026-09-27T19:54:14",
+  "status": "sucesso",
+  "compressao": "snappy",
+  "versoes": {
+    "python": "3.13.5",
+    "pyarrow": "25.0.1"
+  },
+  "conjuntos": [
+    {
+      "conjunto": "interacoes",
+      "origem": "dados/silver/interacoes.json",
+      "destino": "dados/silver/parquet/interacoes",
+      "linhas": 1000,
+      "colunas": 11,
+      "arquivos": 8,
+      "particoes": [
+        "ano_mes=2026-01",
+        "ano_mes=2026-02",
+        "ano_mes=2026-03",
+        "ano_mes=2026-04",
+        "ano_mes=2026-05",
+        "ano_mes=2026-06",
+        "ano_mes=2026-07",
+        "ano_mes=2026-08"
+      ],
+      "bytes": 56573,
+      "duracao_s": 0.181
+    },
+    {
+      "conjunto": "comentarios",
+      "origem": "dados/silver/comentarios.json",
+      "destino": "dados/silver/parquet/comentarios",
+      "linhas": 1000,
+      "colunas": 10,
+      "arquivos": 8,
+      "particoes": [
+        "ano_mes=2026-01",
+        "ano_mes=2026-02",
+        "ano_mes=2026-03",
+        "ano_mes=2026-04",
+        "ano_mes=2026-05",
+        "ano_mes=2026-06",
+        "ano_mes=2026-07",
+        "ano_mes=2026-08"
+      ],
+      "bytes": 64246,
+      "duracao_s": 0.16
+    },
+    {
+      "conjunto": "catalogo",
+      "origem": "dados/silver/catalogo.csv",
+      "destino": "dados/silver/parquet/catalogo",
+      "linhas": 1000,
+      "colunas": 12,
+      "arquivos": 1,
+      "particoes": [],
+      "bytes": 61492,
+      "duracao_s": 0.039
+    }
+  ],
+  "falhas": []
+}

@@ -1,0 +1,94 @@
+# Apache Superset 6.1.0 para o consumo da camada Gold (RF17, RF18).
+#
+# Serviços: Superset (web), worker e beat do Celery (alertas), Redis, banco
+# de metadados do Superset e Mailpit (SMTP de teste para os alertas).
+# O Superset acessa o PostgreSQL do Desafio 1 pela rede do compose daquele
+# projeto, com o usuário somente leitura superset_leitura.
+#
+# Uso (a partir da raiz do projeto):
+#   docker compose -f superset/docker-compose.yml up -d --build
+#   Superset: http://localhost:8088   Mailpit: http://localhost:8025
+
+name: desafio2-superset
+
+x-superset: &superset
+  build: .
+  image: desafio2/superset:6.1.0
+  env_file: .env
+  environment:
+    SUPERSET_CONFIG_PATH: /app/config/superset_config.py
+  volumes:
+    - ./config:/app/config:ro
+  networks:
+    - default
+    - desafio1
+  depends_on:
+    superset-db:
+      condition: service_healthy
+    redis:
+      condition: service_started
+
+services:
+  superset-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: ${SUPERSET_META_SENHA}
+    volumes:
+      - superset_meta:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "superset"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025" # caixa de entrada web
+
+  superset-init:
+    <<: *superset
+    command: ["sh", "/app/config/inicializar.sh"]
+    restart: "no"
+
+  superset:
+    <<: *superset
+    ports:
+      - "8088:8088"
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+
+  superset-worker:
+    <<: *superset
+    command: ["celery", "--app=superset.tasks.celery_app:app", "worker", "--pool=prefork", "-O", "fair", "-c", "2"]
+    # O healthcheck da imagem testa a porta web, que o worker não expõe.
+    healthcheck:
+      test: ["CMD-SHELL", "celery --app=superset.tasks.celery_app:app inspect ping -d celery@$$HOSTNAME"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+
+  superset-beat:
+    <<: *superset
+    command: ["celery", "--app=superset.tasks.celery_app:app", "beat", "--pidfile", "/tmp/celerybeat.pid", "-s", "/tmp/celerybeat-schedule"]
+    healthcheck:
+      disable: true
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+
+volumes:
+  superset_meta:
+
+networks:
+  desafio1:
+    external: true
+    name: fic_dev_ia_desafio-dados_default
