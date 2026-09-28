@@ -143,13 +143,15 @@ posição no ranking: **4,7%** no topo (1–3), 2,0% em 4–6 e 1,5% em 7–10.
 | `alerta/execucoes_alerta.json` | Configuração e histórico de execuções do alerta |
 | `alerta/email_alerta.html` | E-mail do alerta capturado pelo Mailpit |
 
-**Capturas de tela a anexar manualmente:**
-- dashboard completo;
-- dashboard com um filtro cruzado aplicado (clique em uma categoria);
-- filtros globais;
-- SQL Lab com as consultas salvas;
-- lista de alertas;
-- caixa do Mailpit.
+**Capturas de tela (`capturas/`):**
+
+| Arquivo | Mostra |
+|---|---|
+| `01_dashboard_visao_geral.png` | Usuários ativos (71 em ago/2026, −15,5%), taxa de conclusão mensal, interações por categoria e conclusão por tipo |
+| `02_dashboard_filtros_globais_aplicados.png` | Filtros globais de período (último ano), categoria (3 selecionadas) e tipo (Vídeo) aplicados; os gráficos indicam 3 filtros ativos |
+| `03_sql_lab_consultas_salvas.png` | As 4 consultas salvas no SQL Lab, todas sobre o schema `gold` |
+| `04_alerta_configurado.png` | Alerta ativo, diário às 08:00 (America/Sao_Paulo), com última execução bem-sucedida |
+| `05_mailpit_emails_alerta.png` | E-mails do alerta entregues a `curadoria@plataforma-educacional.example` |
 
 ## Problema conhecido: tela preta
 
