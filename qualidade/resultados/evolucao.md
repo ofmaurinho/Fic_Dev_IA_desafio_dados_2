@@ -10,3 +10,4 @@ para regras de conformidade (≥) e máximo para a taxa de quarentena
 | 2026-09-27 19:56:46 `0ed0aa03` | silver | sucesso_com_ressalvas | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 92.3 ✖ | 100.0 | 0.0 |
 | 2026-09-27 19:56:48 `045645df` | simulacao | falha | 99.8 ✖ | 99.7 ✖ | 99.5 ✖ | 99.8 ✖ | 99.8 ✖ | 92.3 ✖ | 99.5 ✖ | 7.4 ✖ |
 | 2026-09-27 19:56:49 `b8f874c2` | silver | sucesso_com_ressalvas | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 92.3 ✖ | 100.0 | 0.0 |
+| 2026-09-27 21:13:21 `b92c8c60` | silver | sucesso_com_ressalvas | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 92.3 ✖ | 100.0 | 0.0 |

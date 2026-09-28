@@ -20,6 +20,10 @@ CREATE TABLE IF NOT EXISTS qualidade.execucao (
         CHECK (status IN ('sucesso', 'sucesso_com_ressalvas', 'falha'))
 );
 
+-- Impressão digital (SHA-256) dos arquivos Silver avaliados; a publicação da
+-- Gold exige a mesma impressão (a Silver não pode mudar depois dos testes).
+ALTER TABLE qualidade.execucao ADD COLUMN IF NOT EXISTS impressao_silver CHAR(64);
+
 -- Uma linha por regra e por fonte avaliada em cada execução.
 CREATE TABLE IF NOT EXISTS qualidade.resultado_teste (
     id_execucao         VARCHAR(64)   NOT NULL REFERENCES qualidade.execucao,

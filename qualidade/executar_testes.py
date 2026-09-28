@@ -43,7 +43,7 @@ from psycopg.types.json import Jsonb
 
 RAIZ_PROJETO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ_PROJETO / "beam"))
-from contratos import CONTRATOS, ler_silver_csv, silver_home  # noqa: E402
+from contratos import CONTRATOS, impressao_silver, ler_silver_csv, silver_home  # noqa: E402
 
 load_dotenv(RAIZ_PROJETO / ".env")
 
@@ -386,9 +386,10 @@ def gravar_banco(conexao, execucao, resultados):
     with conexao.transaction(), conexao.cursor() as cursor:
         cursor.execute(
             """INSERT INTO qualidade.execucao
-               (id_execucao, inicio, fim, status, gold_liberada, origem_dados, silver_home)
+               (id_execucao, inicio, fim, status, gold_liberada, origem_dados, silver_home,
+                impressao_silver)
                VALUES (%(id_execucao)s, %(inicio)s, %(fim)s, %(status)s, %(gold_liberada)s,
-                       %(origem_dados)s, %(silver_home)s)""",
+                       %(origem_dados)s, %(silver_home)s, %(impressao_silver)s)""",
             execucao,
         )
         cursor.executemany(
@@ -495,6 +496,7 @@ def main(argv=None):
         with psycopg.connect(connect_timeout=10) as conexao:
             conexao.execute(SQL_QUALIDADE.read_text(encoding="utf-8"))
             conexao.commit()
+            impressao = impressao_silver()
             resultados = executar_regras(carregar(conexao))
             status = status_final(resultados)
             execucao = {
@@ -505,6 +507,7 @@ def main(argv=None):
                 "gold_liberada": status != "falha",
                 "origem_dados": args.origem_dados,
                 "silver_home": silver_home().as_posix(),
+                "impressao_silver": impressao,
             }
             gravar_banco(conexao, execucao, resultados)
             gravar_evolucao(conexao)

@@ -1,0 +1,11 @@
+usuario_chave,conteudo_mestre_id,conteudo_id_origem,tipo_interacao,data_hora,data,ano_mes,tempo_consumido,percentual_conclusao,avaliacao_atribuida,eh_consumo,eh_conclusao,anterior_a_publicacao,id_execucao_silver
+0140a7c4a2dffeb9,CM-000345,142,conclusão,2026-05-27 03:23:06,2026-05-27,2026-05,19.0,100.00,5.0,True,True,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+0140a7c4a2dffeb9,CM-000235,354,avaliação,2026-05-23 07:33:27,2026-05-23,2026-05,1144.0,65.40,4.0,False,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+0140a7c4a2dffeb9,CM-000883,531,visualização,2026-07-31 00:07:33,2026-07-31,2026-07,15.0,64.00,,True,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+0140a7c4a2dffeb9,CM-000069,784,compartilhamento,2026-04-08 07:44:22,2026-04-08,2026-04,597.0,75.20,,False,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+0140a7c4a2dffeb9,CM-000027,879,visualização,2026-07-30 13:52:35,2026-07-30,2026-07,749.0,84.20,,True,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+0140a7c4a2dffeb9,CM-000743,934,conclusão,2026-05-13 06:03:14,2026-05-13,2026-05,14.0,100.00,5.0,True,True,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+01983171e6d8d157,CM-000558,6,visualização,2026-02-16 22:46:46,2026-02-16,2026-02,12.0,58.80,,True,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+01983171e6d8d157,CM-000695,92,visualização,2026-01-17 12:46:59,2026-01-17,2026-01,319.0,56.50,,True,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+01983171e6d8d157,CM-000591,188,avaliação,2026-02-02 21:23:25,2026-02-02,2026-02,431.0,86.50,3.0,False,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9
+01983171e6d8d157,CM-000182,222,visualização,2026-01-28 10:03:08,2026-01-28,2026-01,20.0,79.60,,True,False,False,fb1f978f-ab43-44be-8568-77f4a134cdd9

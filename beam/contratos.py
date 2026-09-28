@@ -9,6 +9,7 @@ Os diretórios vêm das mesmas variáveis usadas no ambiente do Apache Hop
 (SILVER_HOME) e podem ser sobrescritos por variáveis de ambiente.
 """
 
+import hashlib
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -173,3 +174,16 @@ def adicionar_particao(df, contrato):
     """Acrescenta a coluna ano_mes (AAAA-MM) derivada da data de negócio."""
     datas = pd.to_datetime(df[contrato.coluna_data_particao])
     return df.assign(**{COLUNA_PARTICAO: datas.dt.strftime("%Y-%m")})
+
+
+def impressao_silver():
+    """SHA-256 dos arquivos Silver: identifica exatamente os dados avaliados.
+
+    O quality gate grava esta impressão, e a publicação da Gold exige que os
+    arquivos não tenham mudado desde os testes.
+    """
+    resumo = hashlib.sha256()
+    for nome in sorted(CONTRATOS):
+        resumo.update(nome.encode())
+        resumo.update(CONTRATOS[nome].caminho.read_bytes())
+    return resumo.hexdigest()
