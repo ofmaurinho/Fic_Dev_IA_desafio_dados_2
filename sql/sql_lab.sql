@@ -26,11 +26,11 @@
 --   conclusao        = 1 se a interação é conclusão
 --   dias_desde_publicacao = data da interação − data de publicação do conteúdo
 -- @metricas_no_superset:
---   usuarios_ativos  = COUNT(DISTINCT usuario_chave)
+--   usuarios_ativos  = COUNT(DISTINCT usuario_mascarado) -- ALTERADO PARA O CAMPO MASCARADO
 --   taxa_conclusao   = SUM(conclusao) / NULLIF(SUM(consumo), 0)
 SELECT
     f.data_hora,
-    date_trunc('month', f.data_hora)::DATE             AS mes,
+    date_trunc('month', f.data_hora)::DATE              AS mes,
     to_char(f.data_hora, 'TMDay')                       AS dia_semana,
     CASE
         WHEN EXTRACT(HOUR FROM f.data_hora) < 6  THEN 'madrugada'
@@ -38,10 +38,9 @@ SELECT
         WHEN EXTRACT(HOUR FROM f.data_hora) < 18 THEN 'tarde'
         ELSE 'noite'
     END                                                 AS periodo_do_dia,
-    f.usuario_chave,
+    CONCAT('usr_', LEFT(f.usuario_chave, 4), '***', RIGHT(f.usuario_chave, 4)) AS usuario_mascarado,
     f.conteudo_mestre_id,
     d.titulo,
-    d.tipo,
     d.categoria,
     d.nivel,
     d.faixa_duracao,

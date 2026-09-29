@@ -24,6 +24,7 @@ import platform
 import sys
 import time
 import uuid
+import hashlib
 from datetime import datetime
 from pathlib import Path
 
@@ -35,6 +36,7 @@ from apache_beam.metrics import Metrics
 from apache_beam.metrics.metric import MetricsFilter
 from apache_beam.options.pipeline_options import PipelineOptions, StandardOptions
 
+SALT = os.environ.get("APP_SALT", "salt_secreto_padrao").encode('utf-8')
 RAIZ_PROJETO = Path(__file__).resolve().parent.parent
 
 ENTRADA_PADRAO = "dados/silver/parquet"
@@ -166,6 +168,32 @@ class EngajamentoFn(beam.CombineFn):
         }
 
 
+class MascaramentoLGPDFn(beam.DoFn):
+    """Aplica Pseudonimização/Hashing no identificador e gera tabela De-Para."""
+    
+    def process(self, interacao):
+        reg = dict(interacao)
+        
+        if 'usuario_id' in reg and reg['usuario_id']:
+            id_real = reg['usuario_id']
+            
+            # Pseudonimização com Hashing determinístico: 
+            # Garante que o mesmo usuário tenha sempre o mesmo ID mascarado,
+            # permitindo que o len(acc["usuarios"]) conte corretamente os usuários únicos.
+            hash_id = hashlib.sha256(str(id_real).encode('utf-8') + SALT).hexdigest()
+            pseudo_id = f"usr_{hash_id[:16]}"
+            
+            reg['usuario_id'] = pseudo_id 
+            
+            yield reg
+
+            yield beam.pvalue.TaggedOutput(
+                'tabela_de_para',
+                f'{{"usuario_id_real": "{id_real}", "usuario_chave": "{pseudo_id}"}}'
+            )
+        else:
+            yield reg
+
 def construir(p, entrada, saida, id_execucao, runtime, caminho=lambda c: c):
     categorias = (
         p
@@ -175,6 +203,49 @@ def construir(p, entrada, saida, id_execucao, runtime, caminho=lambda c: c):
             validate=False,
         )
         | "Conteúdo → categoria" >> beam.Map(lambda c: (c["conteudo_id"], c["categoria"]))
+    )
+    interacoes_processadas = (
+        p
+        | "Ler interações" >> ReadFromParquet(
+            caminho(f"{entrada}/interacoes/*/*.parquet"),
+            columns=COLUNAS_INTERACAO,
+            validate=False,
+        )
+        | "Aplicar LGPD (Mascaramento)" >> beam.ParDo(MascaramentoLGPDFn()).with_outputs(
+            'tabela_de_para', main='interacoes_mascaradas'
+        )
+    )
+    (
+        interacoes_processadas.tabela_de_para
+        | "Gravar Tabela De-Para" >> beam.io.WriteToText(
+            caminho(f"{saida}/../restrito_de_para/mapeamento_{id_execucao}"),
+            file_name_suffix=".jsonl",
+            num_shards=1
+        )
+    )
+
+    return (
+        interacoes_processadas.interacoes_mascaradas
+        | "Chavear por mês e categoria" >> beam.ParDo(
+            ChavearPorMesCategoria(), categorias=beam.pvalue.AsDict(categorias)
+        )
+        | "Agregar engajamento" >> beam.CombinePerKey(EngajamentoFn())
+        | "Montar linha Gold" >> beam.MapTuple(
+            lambda chave, medidas: {
+                "ano_mes": chave[0],
+                "categoria": chave[1],
+                **medidas,
+                "id_execucao": id_execucao,
+                "runtime": runtime,
+            }
+        )
+        | "Gravar Parquet" >> WriteToParquet(
+            caminho(f"{saida}/parte"),
+            ESQUEMA_SAIDA,
+            file_name_suffix=".parquet",
+            num_shards=1,
+            codec="snappy",
+        )
     )
 
     return (
