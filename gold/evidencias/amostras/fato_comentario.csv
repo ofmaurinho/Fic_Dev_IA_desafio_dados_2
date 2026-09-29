@@ -1,11 +1,11 @@
 comentario_hash,usuario_chave,conteudo_mestre_id,conteudo_id_origem,data,ano_mes,avaliacao,tags,qtd_tags,anterior_a_publicacao,id_execucao_silver
-0033fc5957886ba7c381c905cbe51ac8,1c39e3a3caeb8fd1,CM-000760,902,2026-06-28,2026-06,3.0,"['dataops', 'streaming', 'iniciante']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-0069a30c6538446544827bd605c1607d,696bbbc07bac8217,CM-000688,476,2026-08-06,2026-08,4.0,"['superset', 'bi', 'didático']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-0072ac5598f3bcda15d7024957c1dcbe,ed7989fa97e9fbf3,CM-000923,937,2026-04-19,2026-04,4.0,"['seguranca', 'lgpd', 'didático']",3,True,027aa1f4-b01d-4180-943d-e4d0a6583faf
-00c31b331e96b83e166ce144e88c258f,2734177db847d8f3,CM-000799,413,2026-05-31,2026-05,5.0,"['llm', 'embeddings', 'didático']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-00c632c2f1d939e62577ce19ef3f1aa4,2bf53f5a636568c3,CM-000504,648,2026-02-17,2026-02,5.0,"['metadados', 'seguranca', 'prático']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-01669afa388887d9fe8094b02ebe89f1,c99527cade00aa7e,CM-000297,965,2026-07-14,2026-07,3.0,"['terraform', 'devops', 'hands-on']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-017e4d967ae3764657ae68176cd8d1b9,2bf4737cf89252e8,CM-000713,549,2026-06-04,2026-06,5.0,"['nlp', 'deep-learning', 'iniciante']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-01e2fddf3191db89d704f616349ebba1,1a6fc16f775f4254,CM-000488,779,2026-02-12,2026-02,4.0,"['kpis', 'metricas', 'avançado']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-0248c1e91057d0be0591e305108fa841,45d240e3ca67d363,CM-000584,268,2026-04-21,2026-04,1.0,"['deep-learning', 'rag', 'teórico']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
-0287f8bb9925faf7d60d9ae11af921ac,888546f84b7b72ae,CM-000492,152,2026-08-20,2026-08,5.0,"['embeddings', 'agentes', 'iniciante']",3,False,027aa1f4-b01d-4180-943d-e4d0a6583faf
+0033fc5957886ba7c381c905cbe51ac8,20e0aa4edf442edf,CM-000760,902,2026-06-28,2026-06,3.0,"['dataops', 'streaming', 'iniciante']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+0069a30c6538446544827bd605c1607d,683d04c7048913d3,CM-000688,476,2026-08-06,2026-08,4.0,"['superset', 'bi', 'didático']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+0072ac5598f3bcda15d7024957c1dcbe,8ed22cf2afde98d8,CM-000923,937,2026-04-19,2026-04,4.0,"['seguranca', 'lgpd', 'didático']",3,True,3a9fa0f0-6144-461e-bfef-955706278517
+00c31b331e96b83e166ce144e88c258f,e430f7bf55ba9c60,CM-000799,413,2026-05-31,2026-05,5.0,"['llm', 'embeddings', 'didático']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+00c632c2f1d939e62577ce19ef3f1aa4,0e0c3b65531d155b,CM-000504,648,2026-02-17,2026-02,5.0,"['metadados', 'seguranca', 'prático']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+01669afa388887d9fe8094b02ebe89f1,d234a4230f742f56,CM-000297,965,2026-07-14,2026-07,3.0,"['terraform', 'devops', 'hands-on']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+017e4d967ae3764657ae68176cd8d1b9,0ebec0f90a45f23b,CM-000713,549,2026-06-04,2026-06,5.0,"['nlp', 'deep-learning', 'iniciante']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+01e2fddf3191db89d704f616349ebba1,e600656d7ec15fb6,CM-000488,779,2026-02-12,2026-02,4.0,"['kpis', 'metricas', 'avançado']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+0248c1e91057d0be0591e305108fa841,066d64a0267dae4f,CM-000584,268,2026-04-21,2026-04,1.0,"['deep-learning', 'rag', 'teórico']",3,False,3a9fa0f0-6144-461e-bfef-955706278517
+0287f8bb9925faf7d60d9ae11af921ac,a01d3622cf9d770c,CM-000492,152,2026-08-20,2026-08,5.0,"['embeddings', 'agentes', 'iniciante']",3,False,3a9fa0f0-6144-461e-bfef-955706278517

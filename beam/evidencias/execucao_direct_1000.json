@@ -1,10 +1,10 @@
 {
-  "id_execucao": "f1ad24ee-4d9e-4291-abb2-73050ea7840e",
+  "id_execucao": "7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced",
   "runtime": "direct",
   "runner": "DirectRunner",
   "estado": "DONE",
-  "inicio": "2026-09-29T04:06:00",
-  "duracao_s": 1.138,
+  "inicio": "2026-09-29T11:22:59",
+  "duracao_s": 1.124,
   "entrada": {
     "caminho": "dados/silver/parquet",
     "linhas": 1000,
@@ -21,9 +21,9 @@
   },
   "opcoes_beam": {},
   "versoes": {
-    "python": "3.14.7",
+    "python": "3.13.3",
     "apache_beam": "2.76.0",
     "pyarrow": "25.0.1",
-    "sistema": "Windows-11-10.0.26200-SP0"
+    "sistema": "Windows-10-10.0.19045-SP0"
   }
 }

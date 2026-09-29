@@ -215,12 +215,14 @@ def construir(p, entrada, saida, id_execucao, runtime, caminho=lambda c: c):
             'tabela_de_para', main='interacoes_mascaradas'
         )
     )
+
+    diretorio_de_para = Path(f"{saida}/../restrito_de_para")
+    diretorio_de_para.mkdir(parents=True, exist_ok=True)
+
     (
         interacoes_processadas.tabela_de_para
-        | "Gravar Tabela De-Para" >> beam.io.WriteToText(
-            caminho(f"{saida}/../restrito_de_para/mapeamento_{id_execucao}"),
-            file_name_suffix=".jsonl",
-            num_shards=1
+        | "Preparar Tabela De-Para" >> beam.Map(
+            lambda registro: registro
         )
     )
 
@@ -322,6 +324,12 @@ def main(argv=None):
     # Os padrões de arquivo são resolvidos nos workers. O sistema de arquivos
     # local do Beam no Windows só reconhece a barra invertida; workers Linux usam "/".
     caminho = os.path.normpath if runner in RUNNERS_LOCAIS else (lambda c: c)
+    diretorio_saida = RAIZ_PROJETO / args.saida
+    diretorio_saida.mkdir(parents=True, exist_ok=True)
+
+    for arquivo in diretorio_saida.glob("*.parquet"):
+        arquivo.unlink()
+    Path(f"{args.saida}/../restrito_de_para").mkdir(parents=True, exist_ok=True)
     construir(p, args.entrada, args.saida, args.id_execucao, rotulo, caminho)
     resultado = p.run()
     estado = resultado.wait_until_finish()

@@ -1,11 +1,11 @@
 {
-  "id_execucao": "f1ad24ee-4d9e-4291-abb2-73050ea7840e",
-  "inicio": "2026-09-29T04:05:56",
-  "fim": "2026-09-29T04:05:57",
+  "id_execucao": "7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced",
+  "inicio": "2026-09-29T11:22:56",
+  "fim": "2026-09-29T11:22:56",
   "status": "sucesso",
   "compressao": "snappy",
   "versoes": {
-    "python": "3.14.7",
+    "python": "3.13.3",
     "pyarrow": "25.0.1"
   },
   "conjuntos": [
@@ -27,7 +27,7 @@
         "ano_mes=2026-08"
       ],
       "bytes": 56565,
-      "duracao_s": 0.192
+      "duracao_s": 0.169
     },
     {
       "conjunto": "comentarios",
@@ -47,7 +47,7 @@
         "ano_mes=2026-08"
       ],
       "bytes": 64238,
-      "duracao_s": 0.528
+      "duracao_s": 0.134
     },
     {
       "conjunto": "catalogo",
@@ -58,7 +58,7 @@
       "arquivos": 1,
       "particoes": [],
       "bytes": 61492,
-      "duracao_s": 0.057
+      "duracao_s": 0.044
     }
   ],
   "falhas": []

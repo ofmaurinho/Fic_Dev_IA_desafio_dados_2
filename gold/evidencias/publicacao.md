@@ -1,7 +1,7 @@
 # Publicação da camada Gold
 
-- Execução: `f1ad24ee-4d9e-4291-abb2-73050ea7840e` em 2026-09-29T04:06:04
-- Quality gate: `f1ad24ee-4d9e-4291-abb2-73050ea7840e` — sucesso_com_ressalvas
+- Execução: `7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced` em 2026-09-29T11:23:03
+- Quality gate: `7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced` — sucesso_com_ressalvas
 
 | Objeto | Linhas |
 |---|---:|

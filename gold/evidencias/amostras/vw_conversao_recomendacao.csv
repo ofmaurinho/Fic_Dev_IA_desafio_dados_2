@@ -1,11 +1,11 @@
 posicao,status,recomendacoes,convertidas,taxa_conversao,convertidas_apos_geracao,concluidas,pontuacao_media
-1,Estável,1,0,0.0000,0,0,50.00
 1,Positivo,149,11,0.0738,0,0,96.62
+1,Estável,1,0,0.0000,0,0,50.00
 2,Estável,1,0,0.0000,0,0,50.00
 2,Positivo,149,4,0.0268,0,0,96.18
-3,Estável,1,0,0.0000,0,0,49.73
 3,Positivo,149,6,0.0403,0,0,95.54
-4,Estável,1,0,0.0000,0,0,49.28
+3,Estável,1,0,0.0000,0,0,49.73
 4,Positivo,149,5,0.0336,0,0,95.02
+4,Estável,1,0,0.0000,0,0,49.28
 5,Estável,1,0,0.0000,0,0,49.28
 5,Positivo,149,4,0.0268,0,1,94.47

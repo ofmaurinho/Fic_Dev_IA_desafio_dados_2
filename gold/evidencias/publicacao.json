@@ -1,8 +1,8 @@
 {
-  "id_execucao": "f1ad24ee-4d9e-4291-abb2-73050ea7840e",
-  "id_execucao_qualidade": "f1ad24ee-4d9e-4291-abb2-73050ea7840e",
+  "id_execucao": "7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced",
+  "id_execucao_qualidade": "7f7d2c44-a4d9-4e5a-8137-9952c5fc8ced",
   "status_qualidade": "sucesso_com_ressalvas",
-  "publicado_em": "2026-09-29T04:06:04",
+  "publicado_em": "2026-09-29T11:23:03",
   "linhas": {
     "silver.catalogo": 1000,
     "silver.interacao": 1000,

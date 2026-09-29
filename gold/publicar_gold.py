@@ -120,7 +120,22 @@ def carregar_silver(cursor):
     for tabela, (contrato, colunas) in CARGAS_SILVER.items():
         linhas[tabela] = copiar(cursor, tabela, colunas, ler_silver_csv(contrato))
 
-    beam = pq.read_table(SAIDA_BEAM).to_pandas()
+    arquivos_beam = [
+        arquivo
+        for arquivo in SAIDA_BEAM.glob("*.parquet")
+        if arquivo.is_file()
+    ]
+
+    if not arquivos_beam:
+        raise FileNotFoundError(
+            f"Nenhum arquivo Parquet encontrado em {SAIDA_BEAM}"
+        )
+    
+    beam = pd.concat(
+        [pq.read_table(arquivo).to_pandas() for arquivo in arquivos_beam],
+        ignore_index=True
+    )
+    
     linhas["silver.engajamento_categoria_mensal"] = copiar(
         cursor, "silver.engajamento_categoria_mensal", list(beam.columns), beam
     )

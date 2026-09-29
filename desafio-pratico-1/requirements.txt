@@ -6,3 +6,5 @@ pymongo
 pgvector
 numpy
 sentence-transformers
+Pillow
+torchvision
