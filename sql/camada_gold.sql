@@ -345,3 +345,22 @@ SELECT
 FROM gold.fato_recomendacao
 WHERE geracao_vigente
 GROUP BY posicao, status;
+
+-- ---------------------------------------------------------------------------
+-- Visões adicionais de minimização e mascaramento (LGPD - RF32 e RF33)
+-- ---------------------------------------------------------------------------
+
+-- Perfil de engajamento do usuário minimizado e mascarado. Grão: usuário.
+-- Remove o acesso às datas exatas de comportamento e expõe apenas um ID ofuscado.
+CREATE OR REPLACE VIEW gold.vw_perfil_usuario_mascarado AS
+SELECT
+    CONCAT('usr_', LEFT(usuario_chave, 4), '***', RIGHT(usuario_chave, 4)) AS usuario_mascarado,
+    total_interacoes,
+    meses_ativos,
+    conteudos_concluidos,
+    CASE 
+        WHEN conteudos_concluidos = 0 THEN 'Inativo/Explorador'
+        WHEN conteudos_concluidos BETWEEN 1 AND 5 THEN 'Casual'
+        ELSE 'Engajado'
+    END AS perfil_engajamento
+FROM gold.dim_usuario;
