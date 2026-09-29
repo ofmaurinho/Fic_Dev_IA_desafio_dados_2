@@ -1,0 +1,59 @@
+{
+  "variables" : [
+    {
+      "name" : "DATA_HOME",
+      "value" : "${PROJECT_HOME}/dados",
+      "description" : "Diretório raiz dos dados"
+    },
+    {
+      "name" : "BRONZE_HOME",
+      "value" : "${PROJECT_HOME}/dados/bronze",
+      "description" : "Camada Bronze"
+    },
+    {
+      "name" : "SILVER_HOME",
+      "value" : "${PROJECT_HOME}/dados/silver",
+      "description" : "Camada Silver"
+    },
+    {
+      "name" : "GOLD_HOME",
+      "value" : "${PROJECT_HOME}/dados/gold",
+      "description" : "Camada Gold"
+    },
+    {
+      "name" : "QUARENTENA_HOME",
+      "value" : "${PROJECT_HOME}/dados/quarentena",
+      "description" : "Registros rejeitados/quarentena"
+    },
+    {
+      "name" : "DATA_INPUT",
+      "value" : "${PROJECT_HOME}/dados/entrada",
+      "description" : "Diretório de entrada de dados"
+    },
+    {
+      "name" : "D1_POSTGRES_HOST",
+      "value" : "localhost",
+      "description" : "Host do PostgreSQL do Desafio Prático 1"
+    },
+    {
+      "name" : "D1_POSTGRES_PORT",
+      "value" : "5433",
+      "description" : "Porta do PostgreSQL do Desafio Prático 1"
+    },
+    {
+      "name" : "D1_POSTGRES_DATABASE",
+      "value" : "desafio_dados",
+      "description" : "Banco de dados do Desafio Prático 1"
+    },
+    {
+      "name" : "D1_POSTGRES_USERNAME",
+      "value" : "postgres",
+      "description" : "Usuário do PostgreSQL do Desafio Prático 1"
+    },
+    {
+      "name" : "D1_POSTGRES_PASSWORD",
+      "value" : "postgres",
+      "description" : "Senha do PostgreSQL do Desafio Prático 1"
+    }
+  ]
+}

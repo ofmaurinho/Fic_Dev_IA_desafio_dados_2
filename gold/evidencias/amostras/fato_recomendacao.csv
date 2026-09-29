@@ -1,11 +1,11 @@
 recomendacao_id,usuario_chave,conteudo_mestre_id,conteudo_id_origem,posicao,pontuacao,status,data_geracao,geracao_vigente,convertida,convertida_apos_geracao,concluida
-1,7415c5bbe27d8fb7,CM-000860,748,1,95.87,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-2,7415c5bbe27d8fb7,CM-000981,465,2,95.32,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-3,7415c5bbe27d8fb7,CM-000092,755,3,95.32,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-4,7415c5bbe27d8fb7,CM-000857,650,4,94.08,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-5,7415c5bbe27d8fb7,CM-000048,339,5,93.98,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-6,7415c5bbe27d8fb7,CM-000050,575,6,93.91,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-7,7415c5bbe27d8fb7,CM-000142,991,7,93.69,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-8,7415c5bbe27d8fb7,CM-000913,130,8,93.52,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-9,7415c5bbe27d8fb7,CM-000336,885,9,92.89,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
-10,7415c5bbe27d8fb7,CM-000689,390,10,92.67,Positivo,2026-09-12 22:29:28.706948,False,False,False,False
+1,1f5a6eb5a31c8920,CM-000860,748,1,95.87,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+2,1f5a6eb5a31c8920,CM-000981,465,2,95.32,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+3,1f5a6eb5a31c8920,CM-000092,755,3,95.32,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+4,1f5a6eb5a31c8920,CM-000857,650,4,94.08,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+5,1f5a6eb5a31c8920,CM-000048,339,5,93.98,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+6,1f5a6eb5a31c8920,CM-000050,575,6,93.91,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+7,1f5a6eb5a31c8920,CM-000142,991,7,93.69,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+8,1f5a6eb5a31c8920,CM-000913,130,8,93.52,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+9,1f5a6eb5a31c8920,CM-000336,885,9,92.89,Positivo,2026-09-26 14:44:52.127019,True,False,False,False
+10,1f5a6eb5a31c8920,CM-000689,390,10,92.67,Positivo,2026-09-26 14:44:52.127019,True,False,False,False

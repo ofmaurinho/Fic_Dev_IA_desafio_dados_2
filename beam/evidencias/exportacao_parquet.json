@@ -1,17 +1,17 @@
 {
-  "id_execucao": "52fef66a-9d71-45ae-833d-1c2b511e0783",
-  "inicio": "2026-09-27T19:54:14",
-  "fim": "2026-09-27T19:54:14",
+  "id_execucao": "f1ad24ee-4d9e-4291-abb2-73050ea7840e",
+  "inicio": "2026-09-29T04:05:56",
+  "fim": "2026-09-29T04:05:57",
   "status": "sucesso",
   "compressao": "snappy",
   "versoes": {
-    "python": "3.13.5",
+    "python": "3.14.7",
     "pyarrow": "25.0.1"
   },
   "conjuntos": [
     {
       "conjunto": "interacoes",
-      "origem": "dados/silver/interacoes.json",
+      "origem": "dados/silver/interacoes.csv",
       "destino": "dados/silver/parquet/interacoes",
       "linhas": 1000,
       "colunas": 11,
@@ -26,12 +26,12 @@
         "ano_mes=2026-07",
         "ano_mes=2026-08"
       ],
-      "bytes": 56573,
-      "duracao_s": 0.181
+      "bytes": 56565,
+      "duracao_s": 0.192
     },
     {
       "conjunto": "comentarios",
-      "origem": "dados/silver/comentarios.json",
+      "origem": "dados/silver/comentarios.csv",
       "destino": "dados/silver/parquet/comentarios",
       "linhas": 1000,
       "colunas": 10,
@@ -46,8 +46,8 @@
         "ano_mes=2026-07",
         "ano_mes=2026-08"
       ],
-      "bytes": 64246,
-      "duracao_s": 0.16
+      "bytes": 64238,
+      "duracao_s": 0.528
     },
     {
       "conjunto": "catalogo",
@@ -58,7 +58,7 @@
       "arquivos": 1,
       "particoes": [],
       "bytes": 61492,
-      "duracao_s": 0.039
+      "duracao_s": 0.057
     }
   ],
   "falhas": []

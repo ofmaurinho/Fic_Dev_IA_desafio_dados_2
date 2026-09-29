@@ -168,8 +168,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>112</xloc>
-      <yloc>272</yloc>
+      <xloc>48</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -258,8 +258,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>288</yloc>
+      <xloc>272</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -305,8 +305,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>352</yloc>
+      <xloc>976</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -352,8 +352,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>32</yloc>
+      <xloc>832</xloc>
+      <yloc>272</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -436,8 +436,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>304</yloc>
+      <xloc>496</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -461,8 +461,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>336</yloc>
+      <xloc>800</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -493,8 +493,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>320</yloc>
+      <xloc>656</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -534,8 +534,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>176</yloc>
+      <xloc>272</xloc>
+      <yloc>272</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -555,8 +555,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>96</yloc>
+      <xloc>624</xloc>
+      <yloc>272</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -596,8 +596,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>208</yloc>
+      <xloc>496</xloc>
+      <yloc>176</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -637,8 +637,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>224</yloc>
+      <xloc>800</xloc>
+      <yloc>176</yloc>
     </GUI>
     <partitioning>
       <method>none</method>

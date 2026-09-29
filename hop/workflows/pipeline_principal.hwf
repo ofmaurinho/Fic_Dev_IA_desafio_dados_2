@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>Fluxo de trabalho novo</name>
+  <name>pipeline_principal</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
+  <description>Orquestração Bronze → Silver → Qualidade → Dados Mestres → Parquet → Beam → Gold.</description>
+  <extended_description/>
   <created_user>-</created_user>
   <modified_user>-</modified_user>
-  <created_date>2026/09/27 13:23:41.086</created_date>
-  <modified_date>2026/09/27 13:23:41.086</modified_date>
-  <parameters/>
+  <created_date>2026/09/29 00:00:00.000</created_date>
+  <modified_date>2026/09/29 00:00:00.000</modified_date>
+  <workflow_version>1.0</workflow_version>
+  <parameters>
+    <parameter>
+      <name>ID_EXECUCAO</name>
+      <description>Identificador único da execução. Gerado no início quando não informado.</description>
+      <default_value/>
+    </parameter>
+  </parameters>
   <actions>
     <action>
       <repeat>N</repeat>
@@ -23,7 +32,18 @@
       <type>SPECIAL</type>
       <attributes/>
       <xloc>50</xloc>
-      <yloc>50</yloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <script>var id = parent_workflow.getVariable("ID_EXECUCAO"); if (id == null || id.toString().trim().length() == 0) { parent_workflow.setVariable("ID_EXECUCAO", java.util.UUID.randomUUID().toString()); } true;</script>
+      <name>Inicializar ID_EXECUCAO</name>
+      <description>Preserva o ID_EXECUCAO recebido; se vazio, gera um UUID único para toda a execução.</description>
+      <type>EVAL</type>
+      <attributes/>
+      <xloc>160</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -44,13 +64,19 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
       <name>Bronze Catálogo</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>144</xloc>
-      <yloc>96</yloc>
+      <xloc>300</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -71,13 +97,19 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
-      <name>Bronze Interaçoes</name>
+      <name>Bronze Interações</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>240</xloc>
-      <yloc>128</yloc>
+      <xloc>430</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -98,13 +130,19 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
       <name>Bronze Comentários</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>336</xloc>
-      <yloc>160</yloc>
+      <xloc>560</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -125,13 +163,19 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
       <name>Silver Catálogo</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>432</xloc>
-      <yloc>192</yloc>
+      <xloc>690</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -152,13 +196,19 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
       <name>Silver Interações</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>528</xloc>
-      <yloc>224</yloc>
+      <xloc>820</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -179,13 +229,139 @@
       <wait_until_finished>Y</wait_until_finished>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>ID_EXECUCAO</name>
+          <value>${ID_EXECUCAO}</value>
+          <stream_name/>
+        </parameter>
       </parameters>
       <run_configuration>local</run_configuration>
       <name>Silver Comentários</name>
+      <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <xloc>624</xloc>
-      <yloc>272</yloc>
+      <xloc>950</xloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>set "PYTHONPATH=${PROJECT_HOME}\beam" &amp;&amp; set "BRONZE_HOME=${PROJECT_HOME}\dados\bronze" &amp;&amp; set "SILVER_HOME=${PROJECT_HOME}\dados\silver" &amp;&amp; "${PROJECT_HOME}/.venv/Scripts/python.exe" "${PROJECT_HOME}/qualidade/executar_testes.py" --id-execucao "${ID_EXECUCAO}"</script>
+      <name>Qualidade</name>
+      <description>Quality gate RF31; falha crítica bloqueia as etapas seguintes.</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1080</xloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>set "PYTHONPATH=${PROJECT_HOME}\beam" &amp;&amp; set "SILVER_HOME=${PROJECT_HOME}\dados\silver" &amp;&amp; set "BRONZE_HOME=${PROJECT_HOME}\dados\bronze" &amp;&amp; "${PROJECT_HOME}/.venv/Scripts/python.exe" "${PROJECT_HOME}/dados_mestres/consolidar_conteudo.py" --id-execucao "${ID_EXECUCAO}"</script>
+      <name>Dados Mestres</name>
+      <description>Consolidação RF30 correlacionada ao mesmo ID.</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1220</xloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>set "PYTHONPATH=${PROJECT_HOME}\beam" &amp;&amp; set "BRONZE_HOME=${PROJECT_HOME}\dados\bronze" &amp;&amp; set "SILVER_HOME=${PROJECT_HOME}\dados\silver" &amp;&amp; set "GOLD_HOME=${PROJECT_HOME}\dados\gold" &amp;&amp; "${PROJECT_HOME}/.venv/Scripts/python.exe" "${PROJECT_HOME}/beam/exportar_parquet.py"</script>
+      <name>Exportar Parquet</name>
+      <description>Exporta a Silver para Parquet antes do Beam.</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1360</xloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>set "PYTHONPATH=${PROJECT_HOME}\beam" &amp;&amp; set "SILVER_HOME=${PROJECT_HOME}\dados\silver" &amp;&amp; set "GOLD_HOME=${PROJECT_HOME}\dados\gold" &amp;&amp; "${PROJECT_HOME}/.venv/Scripts/python.exe" "${PROJECT_HOME}/beam/pipeline.py" --id-execucao "${ID_EXECUCAO}"</script>
+      <name>Beam</name>
+      <description>Executa o Beam com DirectRunner por padrão, usando o mesmo ID.</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1500</xloc>
+      <yloc>80</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>set "PYTHONPATH=${PROJECT_HOME}\beam" &amp;&amp; set "SILVER_HOME=${PROJECT_HOME}\dados\silver" &amp;&amp; set "GOLD_HOME=${PROJECT_HOME}\dados\gold" &amp;&amp; "${PROJECT_HOME}/.venv/Scripts/python.exe" "${PROJECT_HOME}/gold/publicar_gold.py" --id-execucao "${ID_EXECUCAO}"</script>
+      <name>Publicar Gold</name>
+      <description>Publica a Gold somente após os pré-requisitos e quality gate.</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1640</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -195,8 +371,8 @@
       <description/>
       <type>ABORT</type>
       <attributes/>
-      <xloc>496</xloc>
-      <yloc>48</yloc>
+      <xloc>960</xloc>
+      <yloc>416</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -205,8 +381,8 @@
       <description/>
       <type>SUCCESS</type>
       <attributes/>
-      <xloc>720</xloc>
-      <yloc>304</yloc>
+      <xloc>1780</xloc>
+      <yloc>80</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -214,20 +390,27 @@
   <hops>
     <hop>
       <from>Start</from>
-      <to>Bronze Catálogo</to>
+      <to>Inicializar ID_EXECUCAO</to>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Bronze Catálogo</from>
-      <to>Bronze Interaçoes</to>
+      <from>Inicializar ID_EXECUCAO</from>
+      <to>Bronze Catálogo</to>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Bronze Interaçoes</from>
+      <from>Bronze Catálogo</from>
+      <to>Bronze Interações</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Bronze Interações</from>
       <to>Bronze Comentários</to>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -255,6 +438,55 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Silver Comentários</from>
+      <to>Qualidade</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Qualidade</from>
+      <to>Dados Mestres</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dados Mestres</from>
+      <to>Exportar Parquet</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Exportar Parquet</from>
+      <to>Beam</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Beam</from>
+      <to>Publicar Gold</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Publicar Gold</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Inicializar ID_EXECUCAO</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Bronze Catálogo</from>
       <to>Abortar o fluxo de trabalho</to>
       <evaluation>N</evaluation>
@@ -262,7 +494,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Bronze Interaçoes</from>
+      <from>Bronze Interações</from>
       <to>Abortar o fluxo de trabalho</to>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -297,7 +529,42 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Silver Comentários</from>
+      <from>Qualidade</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dados Mestres</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Exportar Parquet</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Beam</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Abortar o fluxo de trabalho</from>
+      <to>Abortar o fluxo de trabalho</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Publicar Gold</from>
       <to>Fim</to>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

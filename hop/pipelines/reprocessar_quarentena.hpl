@@ -63,14 +63,8 @@
     <case_value_group/>
     <cases>
       <case>
-        <value>catalogo.csv</value>
-      </case>
-      <case>
         <value>interacoes.json</value>
         <target_transform>INTERACOES - Entrada da quarentena</target_transform>
-      </case>
-      <case>
-        <value>comentarios.json</value>
       </case>
     </cases>
     <default_target_transform>Arquivo não suportado</default_target_transform>

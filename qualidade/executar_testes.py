@@ -122,10 +122,13 @@ def ler_texto(contrato, caminho):
 
 
 def contar_bronze(contrato):
-    caminho = diretorio("BRONZE_HOME", "bronze") / contrato.arquivo
+    diretorio_bronze = diretorio("BRONZE_HOME", "bronze")
+
     if contrato.nome == "catalogo":
+        caminho = diretorio_bronze / "catalogo.csv"
         return len(pd.read_csv(caminho, dtype=str))
-    # Interações e comentários: JSON do Hop no formato {"data": [...]}.
+
+    caminho = diretorio_bronze / f"{contrato.nome}.json"
     return len(json.loads(caminho.read_text(encoding="utf-8"))["data"])
 
 

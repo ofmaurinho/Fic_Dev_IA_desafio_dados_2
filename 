@@ -1,0 +1,211 @@
+[35mgold/publicar_gold.py[m[36m:[m[32m1[m[36m:[m"""Publica a camada Gold no [1;31mPostgreS[mQL (RF26).
+[35mgold/publicar_gold.py[m[36m:[m[32m14[m[36m:[mPré-requisitos: dados mestres consolidados (dados_mestres/consolidar_[1;31mconteudo[m.py)
+[35mgold/publicar_gold.py[m[36m:[m[32m47[m[36m:[mSAIDA_BEAM = RAIZ_PROJETO / "dados" / "gold" / "engajamento_[1;31mcategoria[m_mensal"
+[35mgold/publicar_gold.py[m[36m:[m[32m51[m[36m:[m    "gold.dim_[1;31mconteudo[m", "gold.dim_[1;31musuario[m", "gold.fato_[1;31minteracao[m", "gold.fato_comentario",
+[35mgold/publicar_gold.py[m[36m:[m[32m52[m[36m:[m    "gold.fato_[1;31mrecomendacao[m", "gold.kpi_engajamento_mensal_[1;31mcategoria[m",
+[35mgold/publicar_gold.py[m[36m:[m[32m54[m[36m:[mVISOES_GOLD = ["gold.vw_kpi_mensal", "gold.vw_desempenho_[1;31mconteudo[m", "gold.vw_conversao_[1;31mrecomendacao[m"]
+[35mgold/publicar_gold.py[m[36m:[m[32m59[m[36m:[m    "silver.[1;31minteracao[m": (INTERACOES, INTERACOES.esquema.names),
+[35mgold/publicar_gold.py[m[36m:[m[32m93[m[36m:[m    cursor.execute("SELECT to_regclass('mestre.[1;31mconteudo[m') IS NOT NULL")
+[35mgold/publicar_gold.py[m[36m:[m[32m95[m[36m:[m        raise Bloqueio("dados mestres ausentes: execute dados_mestres/consolidar_[1;31mconteudo[m.py")
+[35mgold/publicar_gold.py[m[36m:[m[32m96[m[36m:[m    cursor.execute("SELECT COUNT(*) FROM mestre.[1;31mconteudo[m")
+[35mgold/publicar_gold.py[m[36m:[m[32m98[m[36m:[m        raise Bloqueio("mestre.[1;31mconteudo[m está vazio")
+[35mgold/publicar_gold.py[m[36m:[m[32m124[m[36m:[m    linhas["silver.engajamento_[1;31mcategoria[m_mensal"] = copiar(
+[35mgold/publicar_gold.py[m[36m:[m[32m125[m[36m:[m        cursor, "silver.engajamento_[1;31mcategoria[m_mensal", list(beam.columns), beam
+[35msql/acesso_superset.sql[m[36m:[m[32m4[m[36m:[m-- com [1;31musuario[m_id). A senha é definida por superset/configurar_superset.py a
+[35msql/acesso_superset.sql[m[36m:[m[32m18[m[36m:[mGRANT CONNECT ON DATABASE [1;31mdesafio_dados[m TO superset_leitura;
+[35msql/acesso_superset.sql[m[36m:[m[32m26[m[36m:[mREVOKE EXECUTE ON FUNCTION gold.pseudonimo_[1;31musuario[m(INTEGER) FROM PUBLIC;
+[35msql/camada_gold.sql[m[36m:[m[32m11[m[36m:[m-- de conteúdo, RF30) e public.[1;31mrecomendacao[m (Desafio 1).
+[35msql/camada_gold.sql[m[36m:[m[32m12[m[36m:[m-- Minimização (LGPD): o [1;31musuario[m_id não chega à Gold, só o pseudônimo
+[35msql/camada_gold.sql[m[36m:[m[32m13[m[36m:[m-- [1;31musuario[m_chave; o texto livre dos comentários não é publicado.
+[35msql/camada_gold.sql[m[36m:[m[32m18[m[36m:[m-- Pseudônimo estável do usuário: HMAC-SHA256 do [1;31musuario[m_id com chave secreta
+[35msql/camada_gold.sql[m[36m:[m[32m21[m[36m:[mCREATE OR REPLACE FUNCTION gold.pseudonimo_[1;31musuario[m([1;31musuario[m_id INTEGER)
+[35msql/camada_gold.sql[m[36m:[m[32m25[m[36m:[m    SELECT left(encode(public.hmac([1;31musuario[m_id::TEXT,
+[35msql/camada_gold.sql[m[36m:[m[32m31[m[36m:[mCREATE OR REPLACE FUNCTION gold.eh_consumo(tipo_[1;31minteracao[m VARCHAR)
+[35msql/camada_gold.sql[m[36m:[m[32m34[m[36m:[mAS $$ SELECT tipo_[1;31minteracao[m IN ('início', 'visualização', 'conclusão') $$;
+[35msql/camada_gold.sql[m[36m:[m[32m40[m[36m:[m-- Grão: um conteúdo mestre. Chave: [1;31mconteudo[m_mestre_id.
+[35msql/camada_gold.sql[m[36m:[m[32m41[m[36m:[mCREATE TABLE IF NOT EXISTS gold.dim_[1;31mconteudo[m (
+[35msql/camada_gold.sql[m[36m:[m[32m42[m[36m:[m    [1;31mconteudo[m_mestre_id   VARCHAR(12)  PRIMARY KEY,
+[35msql/camada_gold.sql[m[36m:[m[32m43[m[36m:[m    [1;31mconteudo[m_id_canonico INTEGER      NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m46[m[36m:[m    [1;31mcategoria[m            VARCHAR(100) NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m56[m[36m:[m-- Grão: um usuário (pseudonimizado). Chave: [1;31musuario[m_chave.
+[35msql/camada_gold.sql[m[36m:[m[32m57[m[36m:[mCREATE TABLE IF NOT EXISTS gold.dim_[1;31musuario[m (
+[35msql/camada_gold.sql[m[36m:[m[32m58[m[36m:[m    [1;31musuario[m_chave        VARCHAR(16) PRIMARY KEY,
+[35msql/camada_gold.sql[m[36m:[m[32m59[m[36m:[m    primeira_[1;31minteracao[m   TIMESTAMP,
+[35msql/camada_gold.sql[m[36m:[m[32m60[m[36m:[m    ultima_[1;31minteracao[m     TIMESTAMP,
+[35msql/camada_gold.sql[m[36m:[m[32m63[m[36m:[m    [1;31mconteudo[ms_concluidos INTEGER     NOT NULL
+[35msql/camada_gold.sql[m[36m:[m[32m70[m[36m:[m-- Grão: uma interação. Chave: ([1;31musuario[m_chave, [1;31mconteudo[m_id_origem, tipo_[1;31minteracao[m, data_hora).
+[35msql/camada_gold.sql[m[36m:[m[32m71[m[36m:[mCREATE TABLE IF NOT EXISTS gold.fato_[1;31minteracao[m (
+[35msql/camada_gold.sql[m[36m:[m[32m72[m[36m:[m    [1;31musuario[m_chave         VARCHAR(16)   NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m73[m[36m:[m    [1;31mconteudo[m_mestre_id    VARCHAR(12)   NOT NULL REFERENCES gold.dim_[1;31mconteudo[m,
+[35msql/camada_gold.sql[m[36m:[m[32m74[m[36m:[m    [1;31mconteudo[m_id_origem    INTEGER       NOT NULL,  -- rastreabilidade até a Silver
+[35msql/camada_gold.sql[m[36m:[m[32m75[m[36m:[m    tipo_[1;31minteracao[m        VARCHAR(50)   NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m88[m[36m:[m    PRIMARY KEY ([1;31musuario[m_chave, [1;31mconteudo[m_id_origem, tipo_[1;31minteracao[m, data_hora)
+[35msql/camada_gold.sql[m[36m:[m[32m95[m[36m:[m    [1;31musuario[m_chave         VARCHAR(16)   NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m96[m[36m:[m    [1;31mconteudo[m_mestre_id    VARCHAR(12)   NOT NULL REFERENCES gold.dim_[1;31mconteudo[m,
+[35msql/camada_gold.sql[m[36m:[m[32m97[m[36m:[m    [1;31mconteudo[m_id_origem    INTEGER       NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m107[m[36m:[m-- Grão: uma recomendação gerada pelo motor do Desafio 1. Chave: [1;31mrecomendacao[m_id.
+[35msql/camada_gold.sql[m[36m:[m[32m113[m[36m:[mCREATE TABLE IF NOT EXISTS gold.fato_[1;31mrecomendacao[m (
+[35msql/camada_gold.sql[m[36m:[m[32m114[m[36m:[m    [1;31mrecomendacao[m_id         INTEGER       PRIMARY KEY,
+[35msql/camada_gold.sql[m[36m:[m[32m115[m[36m:[m    [1;31musuario[m_chave           VARCHAR(16)   NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m116[m[36m:[m    [1;31mconteudo[m_mestre_id      VARCHAR(12)   NOT NULL REFERENCES gold.dim_[1;31mconteudo[m,
+[35msql/camada_gold.sql[m[36m:[m[32m117[m[36m:[m    [1;31mconteudo[m_id_origem      INTEGER       NOT NULL,
+[35msql/camada_gold.sql[m[36m:[m[32m128[m[36m:[m-- Grão: mês × [1;31mcategoria[m. Chave: (ano_mes, [1;31mcategoria[m). Produzida pelo pipeline
+[35msql/camada_gold.sql[m[36m:[m[32m129[m[36m:[m-- Apache Beam (beam/pipeline.py). [1;31mconteudo[ms_consumidos conta [1;31mconteudo[m_id de
+[35msql/camada_gold.sql[m[36m:[m[32m131[m[36m:[mCREATE TABLE IF NOT EXISTS gold.kpi_engajamento_mensal_[1;31mcategoria[m (
+[35msql/camada_gold.sql[m[36m:[m[32m132[m[36m:[m    LIKE silver.engajamento_[1;31mcategoria[m_mensal INCLUDING ALL
+[35msql/camada_gold.sql[m[36m:[m[32m148[m[36m:[mTRUNCATE gold.fato_[1;31minteracao[m, gold.fato_comentario, gold.fato_[1;31mrecomendacao[m,
+[35msql/camada_gold.sql[m[36m:[m[32m149[m[36m:[m         gold.dim_[1;31musuario[m, gold.dim_[1;31mconteudo[m, gold.kpi_engajamento_mensal_[1;31mcategoria[m;
+[35msql/camada_gold.sql[m[36m:[m[32m151[m[36m:[mINSERT INTO gold.dim_[1;31mconteudo[m
+[35msql/camada_gold.sql[m[36m:[m[32m153[m[36m:[m    [1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m154[m[36m:[m    [1;31mconteudo[m_id_canonico,
+[35msql/camada_gold.sql[m[36m:[m[32m157[m[36m:[m    [1;31mcategoria[m,
+[35msql/camada_gold.sql[m[36m:[m[32m169[m[36m:[mFROM mestre.[1;31mconteudo[m;
+[35msql/camada_gold.sql[m[36m:[m[32m171[m[36m:[m-- Tradução do [1;31mconteudo[m_id de cada fonte para o conteúdo mestre.
+[35msql/camada_gold.sql[m[36m:[m[32m172[m[36m:[mCREATE TEMPORARY TABLE mapa_[1;31mconteudo[m ON COMMIT DROP AS
+[35msql/camada_gold.sql[m[36m:[m[32m173[m[36m:[mSELECT fonte, id_origem AS [1;31mconteudo[m_id, [1;31mconteudo[m_mestre_id
+[35msql/camada_gold.sql[m[36m:[m[32m174[m[36m:[mFROM mestre.[1;31mconteudo[m_correspondencia;
+[35msql/camada_gold.sql[m[36m:[m[32m176[m[36m:[mINSERT INTO gold.fato_[1;31minteracao[m
+[35msql/camada_gold.sql[m[36m:[m[32m178[m[36m:[m    gold.pseudonimo_[1;31musuario[m(i.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m179[m[36m:[m    m.[1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m180[m[36m:[m    i.[1;31mconteudo[m_id,
+[35msql/camada_gold.sql[m[36m:[m[32m181[m[36m:[m    i.tipo_[1;31minteracao[m,
+[35msql/camada_gold.sql[m[36m:[m[32m188[m[36m:[m    gold.eh_consumo(i.tipo_[1;31minteracao[m),
+[35msql/camada_gold.sql[m[36m:[m[32m189[m[36m:[m    i.tipo_[1;31minteracao[m = 'conclusão',
+[35msql/camada_gold.sql[m[36m:[m[32m192[m[36m:[mFROM silver.[1;31minteracao[m i
+[35msql/camada_gold.sql[m[36m:[m[32m193[m[36m:[mJOIN mapa_[1;31mconteudo[m m ON m.fonte = 'silver_catalogo' AND m.[1;31mconteudo[m_id = i.[1;31mconteudo[m_id
+[35msql/camada_gold.sql[m[36m:[m[32m194[m[36m:[mJOIN silver.catalogo c ON c.[1;31mconteudo[m_id = i.[1;31mconteudo[m_id;
+[35msql/camada_gold.sql[m[36m:[m[32m198[m[36m:[m    md5(concat_ws('|', co.[1;31musuario[m_id, co.[1;31mconteudo[m_id, co.data, co.comentario)),
+[35msql/camada_gold.sql[m[36m:[m[32m199[m[36m:[m    gold.pseudonimo_[1;31musuario[m(co.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m200[m[36m:[m    m.[1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m201[m[36m:[m    co.[1;31mconteudo[m_id,
+[35msql/camada_gold.sql[m[36m:[m[32m210[m[36m:[mJOIN mapa_[1;31mconteudo[m m ON m.fonte = 'silver_catalogo' AND m.[1;31mconteudo[m_id = co.[1;31mconteudo[m_id
+[35msql/camada_gold.sql[m[36m:[m[32m211[m[36m:[mJOIN silver.catalogo c ON c.[1;31mconteudo[m_id = co.[1;31mconteudo[m_id;
+[35msql/camada_gold.sql[m[36m:[m[32m213[m[36m:[m-- Consumo por usuário e conteúdo mestre, calculado com o [1;31musuario[m_id ainda
+[35msql/camada_gold.sql[m[36m:[m[32m217[m[36m:[m    i.[1;31musuario[m_id,
+[35msql/camada_gold.sql[m[36m:[m[32m218[m[36m:[m    m.[1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m219[m[36m:[m    MIN(i.data_hora) FILTER (WHERE gold.eh_consumo(i.tipo_[1;31minteracao[m)) AS primeiro_consumo,
+[35msql/camada_gold.sql[m[36m:[m[32m220[m[36m:[m    MAX(i.data_hora) FILTER (WHERE gold.eh_consumo(i.tipo_[1;31minteracao[m)) AS ultimo_consumo,
+[35msql/camada_gold.sql[m[36m:[m[32m221[m[36m:[m    BOOL_OR(i.tipo_[1;31minteracao[m = 'conclusão') AS concluiu
+[35msql/camada_gold.sql[m[36m:[m[32m222[m[36m:[mFROM silver.[1;31minteracao[m i
+[35msql/camada_gold.sql[m[36m:[m[32m223[m[36m:[mJOIN mapa_[1;31mconteudo[m m ON m.fonte = 'silver_catalogo' AND m.[1;31mconteudo[m_id = i.[1;31mconteudo[m_id
+[35msql/camada_gold.sql[m[36m:[m[32m224[m[36m:[mGROUP BY i.[1;31musuario[m_id, m.[1;31mconteudo[m_mestre_id;
+[35msql/camada_gold.sql[m[36m:[m[32m226[m[36m:[mINSERT INTO gold.fato_[1;31mrecomendacao[m
+[35msql/camada_gold.sql[m[36m:[m[32m228[m[36m:[m    r.[1;31mrecomendacao[m_id,
+[35msql/camada_gold.sql[m[36m:[m[32m229[m[36m:[m    gold.pseudonimo_[1;31musuario[m(r.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m230[m[36m:[m    m.[1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m231[m[36m:[m    r.[1;31mconteudo[m_id,
+[35msql/camada_gold.sql[m[36m:[m[32m236[m[36m:[m    r.data_geracao = MAX(r.data_geracao) OVER (PARTITION BY r.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m240[m[36m:[mFROM public.[1;31mrecomendacao[m r
+[35msql/camada_gold.sql[m[36m:[m[32m241[m[36m:[mJOIN mapa_[1;31mconteudo[m m ON m.fonte = 'd1_[1;31mpostgres[m' AND m.[1;31mconteudo[m_id = r.[1;31mconteudo[m_id
+[35msql/camada_gold.sql[m[36m:[m[32m243[m[36m:[m       ON cs.[1;31musuario[m_id = r.[1;31musuario[m_id AND cs.[1;31mconteudo[m_mestre_id = m.[1;31mconteudo[m_mestre_id;
+[35msql/camada_gold.sql[m[36m:[m[32m245[m[36m:[mINSERT INTO gold.dim_[1;31musuario[m
+[35msql/camada_gold.sql[m[36m:[m[32m247[m[36m:[m    gold.pseudonimo_[1;31musuario[m(u.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m250[m[36m:[m    COUNT(i.[1;31musuario[m_id),
+[35msql/camada_gold.sql[m[36m:[m[32m252[m[36m:[m    COUNT(DISTINCT i.[1;31mconteudo[m_id) FILTER (WHERE i.tipo_[1;31minteracao[m = 'conclusão')
+[35msql/camada_gold.sql[m[36m:[m[32m253[m[36m:[mFROM public.[1;31musuario[m u
+[35msql/camada_gold.sql[m[36m:[m[32m254[m[36m:[mLEFT JOIN silver.[1;31minteracao[m i ON i.[1;31musuario[m_id = u.[1;31musuario[m_id
+[35msql/camada_gold.sql[m[36m:[m[32m255[m[36m:[mGROUP BY u.[1;31musuario[m_id;
+[35msql/camada_gold.sql[m[36m:[m[32m257[m[36m:[mINSERT INTO gold.kpi_engajamento_mensal_[1;31mcategoria[m
+[35msql/camada_gold.sql[m[36m:[m[32m258[m[36m:[mSELECT * FROM silver.engajamento_[1;31mcategoria[m_mensal;
+[35msql/camada_gold.sql[m[36m:[m[32m265[m[36m:[m-- [1;31musuario[m_ativo: usuário com ao menos uma interação de qualquer tipo no mês.
+[35msql/camada_gold.sql[m[36m:[m[32m271[m[36m:[m    COUNT(DISTINCT [1;31musuario[m_chave)                   AS [1;31musuario[ms_ativos,
+[35msql/camada_gold.sql[m[36m:[m[32m272[m[36m:[m    COUNT(DISTINCT [1;31mconteudo[m_mestre_id)              AS [1;31mconteudo[ms_consumidos,
+[35msql/camada_gold.sql[m[36m:[m[32m279[m[36m:[mFROM gold.fato_[1;31minteracao[m
+[35msql/camada_gold.sql[m[36m:[m[32m283[m[36m:[mCREATE OR REPLACE VIEW gold.vw_desempenho_[1;31mconteudo[m AS
+[35msql/camada_gold.sql[m[36m:[m[32m286[m[36m:[m        [1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m288[m[36m:[m        COUNT(DISTINCT [1;31musuario[m_chave)        AS [1;31musuario[ms,
+[35msql/camada_gold.sql[m[36m:[m[32m292[m[36m:[m    FROM gold.fato_[1;31minteracao[m
+[35msql/camada_gold.sql[m[36m:[m[32m293[m[36m:[m    GROUP BY [1;31mconteudo[m_mestre_id
+[35msql/camada_gold.sql[m[36m:[m[32m296[m[36m:[m    SELECT [1;31mconteudo[m_mestre_id, COUNT(*) AS comentarios, AVG(avaliacao) AS nota_media_comentarios
+[35msql/camada_gold.sql[m[36m:[m[32m298[m[36m:[m    GROUP BY [1;31mconteudo[m_mestre_id
+[35msql/camada_gold.sql[m[36m:[m[32m302[m[36m:[m        [1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m305[m[36m:[m    FROM gold.fato_[1;31mrecomendacao[m
+[35msql/camada_gold.sql[m[36m:[m[32m307[m[36m:[m    GROUP BY [1;31mconteudo[m_mestre_id
+[35msql/camada_gold.sql[m[36m:[m[32m310[m[36m:[m    d.[1;31mconteudo[m_mestre_id,
+[35msql/camada_gold.sql[m[36m:[m[32m313[m[36m:[m    d.[1;31mcategoria[m,
+[35msql/camada_gold.sql[m[36m:[m[32m319[m[36m:[m    COALESCE(i.[1;31musuario[ms, 0)              AS [1;31musuario[ms,
+[35msql/camada_gold.sql[m[36m:[m[32m328[m[36m:[mFROM gold.dim_[1;31mconteudo[m d
+[35msql/camada_gold.sql[m[36m:[m[32m329[m[36m:[mLEFT JOIN interacoes i USING ([1;31mconteudo[m_mestre_id)
+[35msql/camada_gold.sql[m[36m:[m[32m330[m[36m:[mLEFT JOIN comentarios c USING ([1;31mconteudo[m_mestre_id)
+[35msql/camada_gold.sql[m[36m:[m[32m331[m[36m:[mLEFT JOIN recomendacoes r USING ([1;31mconteudo[m_mestre_id);
+[35msql/camada_gold.sql[m[36m:[m[32m334[m[36m:[m-- conversao_[1;31mrecomendacao[m: recomendações convertidas / recomendações.
+[35msql/camada_gold.sql[m[36m:[m[32m335[m[36m:[mCREATE OR REPLACE VIEW gold.vw_conversao_[1;31mrecomendacao[m AS
+[35msql/camada_gold.sql[m[36m:[m[32m345[m[36m:[mFROM gold.fato_[1;31mrecomendacao[m
+[35msql/camada_silver.sql[m[36m:[m[32m1[m[36m:[m-- Camada Silver no [1;31mPostgreS[mQL (RF26).
+[35msql/camada_silver.sql[m[36m:[m[32m10[m[36m:[m    [1;31mconteudo[m_id       INTEGER      PRIMARY KEY,
+[35msql/camada_silver.sql[m[36m:[m[32m13[m[36m:[m    [1;31mcategoria[m         VARCHAR(100) NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m24[m[36m:[mCREATE TABLE IF NOT EXISTS silver.[1;31minteracao[m (
+[35msql/camada_silver.sql[m[36m:[m[32m25[m[36m:[m    [1;31musuario[m_id           INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m26[m[36m:[m    [1;31mconteudo[m_id          INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m27[m[36m:[m    tipo_[1;31minteracao[m       VARCHAR(50)  NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m36[m[36m:[m    PRIMARY KEY ([1;31musuario[m_id, [1;31mconteudo[m_id, tipo_[1;31minteracao[m, data_hora)
+[35msql/camada_silver.sql[m[36m:[m[32m40[m[36m:[m    [1;31musuario[m_id    INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m41[m[36m:[m    [1;31mconteudo[m_id   INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m50[m[36m:[m    PRIMARY KEY ([1;31musuario[m_id, [1;31mconteudo[m_id, data, comentario)
+[35msql/camada_silver.sql[m[36m:[m[32m54[m[36m:[mCREATE TABLE IF NOT EXISTS silver.engajamento_[1;31mcategoria[m_mensal (
+[35msql/camada_silver.sql[m[36m:[m[32m56[m[36m:[m    [1;31mcategoria[m                  VARCHAR(100) NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m58[m[36m:[m    [1;31musuario[ms_ativos            INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m59[m[36m:[m    [1;31mconteudo[ms_consumidos       INTEGER      NOT NULL,
+[35msql/camada_silver.sql[m[36m:[m[32m72[m[36m:[m    PRIMARY KEY (ano_mes, [1;31mcategoria[m)
+[35msql/dados_mestres.sql[m[36m:[m[32m2[m[36m:[m-- Criado e mantido por dados_mestres/consolidar_[1;31mconteudo[m.py; pode ser
+[35msql/dados_mestres.sql[m[36m:[m[32m7[m[36m:[mCREATE SEQUENCE IF NOT EXISTS mestre.seq_[1;31mconteudo[m_mestre;
+[35msql/dados_mestres.sql[m[36m:[m[32m12[m[36m:[mCREATE TABLE IF NOT EXISTS mestre.[1;31mconteudo[m_correspondencia (
+[35msql/dados_mestres.sql[m[36m:[m[32m13[m[36m:[m    fonte               VARCHAR(20) NOT NULL,  -- silver_catalogo | d1_[1;31mpostgres[m
+[35msql/dados_mestres.sql[m[36m:[m[32m14[m[36m:[m    id_origem           INTEGER     NOT NULL,  -- [1;31mconteudo[m_id na fonte
+[35msql/dados_mestres.sql[m[36m:[m[32m15[m[36m:[m    [1;31mconteudo[m_mestre_id  VARCHAR(12) NOT NULL,  -- CM-000001
+[35msql/dados_mestres.sql[m[36m:[m[32m16[m[36m:[m    -- M1 = mesmo [1;31mconteudo[m_id entre fontes; M2 = duplicata por atributos;
+[35msql/dados_mestres.sql[m[36m:[m[32m31[m[36m:[m    ON mestre.[1;31mconteudo[m_correspondencia ([1;31mconteudo[m_mestre_id);
+[35msql/dados_mestres.sql[m[36m:[m[32m35[m[36m:[mCREATE TABLE IF NOT EXISTS mestre.[1;31mconteudo[m (
+[35msql/dados_mestres.sql[m[36m:[m[32m36[m[36m:[m    [1;31mconteudo[m_mestre_id  VARCHAR(12)  PRIMARY KEY,
+[35msql/dados_mestres.sql[m[36m:[m[32m37[m[36m:[m    [1;31mconteudo[m_id_canonico INTEGER     NOT NULL,
+[35msql/dados_mestres.sql[m[36m:[m[32m40[m[36m:[m    [1;31mcategoria[m           VARCHAR(100) NOT NULL,
+[35msql/dados_mestres.sql[m[36m:[m[32m53[m[36m:[mCREATE TABLE IF NOT EXISTS mestre.[1;31mconteudo[m_conflito (
+[35msql/dados_mestres.sql[m[36m:[m[32m54[m[36m:[m    [1;31mconteudo[m_mestre_id  VARCHAR(12) NOT NULL,
+[35msql/dados_mestres.sql[m[36m:[m[32m56[m[36m:[m    -- entre_fontes (mesmo [1;31mconteudo[m_id) | entre_duplicatas (M2)
+[35msql/dados_mestres.sql[m[36m:[m[32m63[m[36m:[m    PRIMARY KEY ([1;31mconteudo[m_mestre_id, atributo, nivel)
+[35msql/sql_lab.sql[m[36m:[m[32m19[m[36m:[m--   [1;31mcategoria[m, tipo e nível e calcular usuários ativos e taxa de conclusão.
+[35msql/sql_lab.sql[m[36m:[m[32m29[m[36m:[m--   [1;31musuario[ms_ativos  = COUNT(DISTINCT [1;31musuario[m_chave)
+[35msql/sql_lab.sql[m[36m:[m[32m41[m[36m:[m    f.[1;31musuario[m_chave,
+[35msql/sql_lab.sql[m[36m:[m[32m42[m[36m:[m    f.[1;31mconteudo[m_mestre_id,
+[35msql/sql_lab.sql[m[36m:[m[32m45[m[36m:[m    d.[1;31mcategoria[m,
+[35msql/sql_lab.sql[m[36m:[m[32m48[m[36m:[m    f.tipo_[1;31minteracao[m,
+[35msql/sql_lab.sql[m[36m:[m[32m56[m[36m:[mFROM gold.fato_[1;31minteracao[m f
+[35msql/sql_lab.sql[m[36m:[m[32m57[m[36m:[mJOIN gold.dim_[1;31mconteudo[m d USING ([1;31mconteudo[m_mestre_id);
+[35msql/sql_lab.sql[m[36m:[m[32m60[m[36m:[m-- @consulta: vds_conversao_[1;31mrecomendacao[m
+[35msql/sql_lab.sql[m[36m:[m[32m61[m[36m:[m-- @titulo: Conversão das recomendações por [1;31mcategoria[m e faixa de posição
+[35msql/sql_lab.sql[m[36m:[m[32m64[m[36m:[m--   consome, por [1;31mcategoria[m, faixa de posição no ranking e status. Considera
+[35msql/sql_lab.sql[m[36m:[m[32m77[m[36m:[m    d.[1;31mcategoria[m,
+[35msql/sql_lab.sql[m[36m:[m[32m89[m[36m:[mFROM gold.fato_[1;31mrecomendacao[m r
+[35msql/sql_lab.sql[m[36m:[m[32m90[m[36m:[mJOIN gold.dim_[1;31mconteudo[m d USING ([1;31mconteudo[m_mestre_id)
+[35msql/sql_lab.sql[m[36m:[m[32m95[m[36m:[m-- @consulta: lista_acao_[1;31mconteudo[ms
+[35msql/sql_lab.sql[m[36m:[m[32m103[m[36m:[m--   [1;31musuario[ms         = COUNT(DISTINCT [1;31musuario[m_chave) nas interações
+[35msql/sql_lab.sql[m[36m:[m[32m112[m[36m:[m    SELECT [1;31mconteudo[m_mestre_id, avaliacao_atribuida AS nota
+[35msql/sql_lab.sql[m[36m:[m[32m113[m[36m:[m    FROM gold.fato_[1;31minteracao[m
+[35msql/sql_lab.sql[m[36m:[m[32m116[m[36m:[m    SELECT [1;31mconteudo[m_mestre_id, avaliacao
+[35msql/sql_lab.sql[m[36m:[m[32m121[m[36m:[m        [1;31mconteudo[m_mestre_id,
+[35msql/sql_lab.sql[m[36m:[m[32m122[m[36m:[m        COUNT(DISTINCT [1;31musuario[m_chave) AS [1;31musuario[ms,
+[35msql/sql_lab.sql[m[36m:[m[32m124[m[36m:[m        MAX(data_hora)                AS ultima_[1;31minteracao[m
+[35msql/sql_lab.sql[m[36m:[m[32m125[m[36m:[m    FROM gold.fato_[1;31minteracao[m
+[35msql/sql_lab.sql[m[36m:[m[32m126[m[36m:[m    GROUP BY [1;31mconteudo[m_mestre_id
+[35msql/sql_lab.sql[m[36m:[m[32m129[m[36m:[m    SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY [1;31musuario[ms) AS mediana_[1;31musuario[ms
+[35msql/sql_lab.sql[m[36m:[m[32m134[m[36m:[m        d.[1;31mconteudo[m_mestre_id,
+[35msql/sql_lab.sql[m[36m:[m[32m137[m[36m:[m        d.[1;31mcategoria[m,
+[35msql/sql_lab.sql[m[36m:[m[32m139[m[36m:[m        e.[1;31musuario[ms,
+[35msql/sql_lab.sql[m[36m:[m[32m143[m[36m:[m        EXTRACT(YEAR FROM age(e.ultima_[1;31minteracao[m, d.data_publicacao)) * 12
+[35msql/sql_lab.sql[m[36m:[m[32m144[m[36m:[m          + EXTRACT(MONTH FROM age(e.ultima_[1;31minteracao[m, d.data_publicacao)) AS meses_publicado,
+[35msql/sql_lab.sql[m[36m:[m[32m145[m[36m:[m        m.mediana_[1;31musuario[ms
+[35msql/sql_lab.sql[m[36m:[m[32m146[m[36m:[m    FROM gold.dim_[1;31mconteudo[m d
+[35msql/sql_lab.sql[m[36m:[m[32m147[m[36m:[m    JOIN engajamento e USING ([1;31mconteudo[m_mestre_id)
+[35msql/sql_lab.sql[m[36m:[m[32m149[m[36m:[m    LEFT JOIN notas n USING ([1;31mconteudo[m_mestre_id)
+[35msql/sql_lab.sql[m[36m:[m[32m150[m[36m:[m    GROUP BY d.[1;31mconteudo[m_mestre_id, d.titulo, d.tipo, d.[1;31mcategoria[m, d.nivel,
+[35msql/sql_lab.sql[m[36m:[m[32m151[m[36m:[m             e.[1;31musuario[ms, e.interacoes, e.ultima_[1;31minteracao[m, d.data_publicacao, m.mediana_[1;31musuario[ms
+[35msql/sql_lab.sql[m[36m:[m[32m154[m[36m:[m    [1;31mconteudo[m_mestre_id,
+[35msql/sql_lab.sql[m[36m:[m[32m157[m[36m:[m    [1;31mcategoria[m,
+[35msql/sql_lab.sql[m[36m:[m[32m159[m[36m:[m    [1;31musuario[ms,
+[35msql/sql_lab.sql[m[36m:[m[32m165[m[36m:[m        WHEN [1;31musuario[ms > mediana_[1;31musuario[ms AND nota_media >= 4   THEN 'Promover'
+[35msql/sql_lab.sql[m[36m:[m[32m166[m[36m:[m        WHEN [1;31musuario[ms > mediana_[1;31musuario[ms AND nota_media < 3.5  THEN 'Revisar conteúdo'
+[35msql/sql_lab.sql[m[36m:[m[32m167[m[36m:[m        WHEN [1;31musuario[ms <= mediana_[1;31musuario[ms AND nota_media >= 4  THEN 'Divulgar'
+[35msql/sql_lab.sql[m[36m:[m[32m168[m[36m:[m        WHEN [1;31musuario[ms <= mediana_[1;31musuario[ms AND nota_media < 3.5 THEN 'Reavaliar no catálogo'
+[35msql/sql_lab.sql[m[36m:[m[32m172[m[36m:[mORDER BY [1;31musuario[ms DESC, nota_media DESC;
+[35msql/sql_lab.sql[m[36m:[m[32m175[m[36m:[m-- @consulta: alerta_conversao_[1;31mrecomendacao[m
+[35msql/sql_lab.sql[m[36m:[m[32m185[m[36m:[mFROM gold.fato_[1;31mrecomendacao[m

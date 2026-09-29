@@ -1,0 +1,48 @@
+{
+    "catalogo": {
+        "valido": 1000,
+        "invalido": 0,
+        "incompleto": 0,
+        "duplicado": 0
+    },
+    "interacoes": {
+        "valido": 1000,
+        "invalido": 0,
+        "incompleto": 0,
+        "duplicado": 0
+    },
+    "comentarios": {
+        "valido": 1000,
+        "invalido": 0,
+        "incompleto": 0,
+        "duplicado": 0
+    },
+    "registros_carregados": {
+        "postgresql": {
+            "catalogo": 1000,
+            "interacoes": 1000
+        },
+        "mongodb": {
+            "comentarios": 1000
+        },
+        "pgvector": {
+            "gerados": 1000,
+            "reaproveitados": 0,
+            "falhas": 0
+        },
+        "recomendacoes": {
+            "data_geracao": "2026-09-26T14:44:52.127019",
+            "total": 1500,
+            "por_status": {
+                "Positivo": 1490,
+                "Estável": 10
+            }
+        }
+    },
+    "registros_corrigidos": {
+        "catalogo": 1000,
+        "interacoes": 0,
+        "comentarios": 0
+    },
+    "tempo_processamento_segundos": 71.30980706214905
+}

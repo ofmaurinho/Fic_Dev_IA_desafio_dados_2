@@ -1,0 +1,114 @@
+dados:
+  catalogo: dados/brutos/catalogo.csv
+  interacoes: dados/brutos/interacoes.json
+  comentarios: dados/brutos/comentarios.json
+
+  processados:
+    catalogo: dados/processados/catalogo.csv
+    interacoes: dados/processados/interacoes.json
+    comentarios: dados/processados/comentarios.json
+    resumo: dados/processados/resumo.json
+
+validacao:
+  catalogo:
+    campos_obrigatorios:
+      - conteudo_id
+      - titulo
+      - tipo
+      - categoria
+      - nivel
+      - carga_horaria_min
+      - data_publicacao
+      - descricao
+      - autor
+
+    tipos_permitidos:
+      - Curso
+      - Podcast
+      - Artigo
+      - Vídeo
+
+    niveis_permitidos:
+      - Básico
+      - Intermediário
+      - Avançado
+  
+  interacoes:
+    campos_obrigatorios:
+      - usuario_id
+      - conteudo_id
+      - tipo_interacao
+      - data_hora
+      - tempo_consumido
+      - percentual_conclusao
+
+    tipos_permitidos:
+      - início
+      - visualização
+      - curtida
+      - compartilhamento
+      - conclusão
+      - avaliação
+
+    percentual_conclusao:
+      minimo: 0
+      maximo: 100
+
+    tempo_consumido:
+      minimo: 0
+
+    avaliacao_atribuida:
+      minimo: 1
+      maximo: 5
+      permite_nulo: true
+
+  comentarios:
+    campos_obrigatorios:
+      - usuario_id
+      - conteudo_id
+      - avaliacao
+      - comentario
+      - tags
+      - data
+
+    avaliacao:
+      minimo: 1
+      maximo: 5
+
+postgresql:
+  host: localhost
+  porta: 5433
+  banco: desafio_dados
+  usuario: postgres
+
+mongodb:
+  host: localhost
+  porta: 27018
+  banco: desafio_dados
+  colecao_comentarios: comentarios
+  timeout_ms: 5000
+
+embeddings:
+  modelo: clip-ViT-B-32
+  dimensao: 512
+  lote: 64
+
+busca:
+  top_k: 5
+  consultas_demo:
+    - Quero aprender os fundamentos de banco de dados para inteligência artificial.
+    - Como proteger APIs contra vazamentos de dados?
+    - Podcast sobre machine learning supervisionado
+
+recomendacao:
+  top_n: 10
+  tipos_visualizacao:
+    - visualização
+    - início
+    - conclusão
+  tipo_curtida: curtida
+  tipo_conclusao: conclusão
+  nota_minima_curtida: 4
+  limiar_positivo: 70
+  limiar_negativo: 40
+  normalizar_indices: true

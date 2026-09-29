@@ -76,12 +76,12 @@
       </condition>
     </compare>
     <send_true_to>Validar valores permitidos</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - campos obrigatórios</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>144</yloc>
+      <xloc>416</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -144,12 +144,12 @@
       </condition>
     </compare>
     <send_true_to>Validar conteúdo</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - valores permitidos</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>176</yloc>
+      <xloc>656</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -169,8 +169,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>288</yloc>
+      <xloc>816</xloc>
+      <yloc>160</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -202,8 +202,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>224</yloc>
+      <xloc>816</xloc>
+      <yloc>48</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -234,12 +234,12 @@
       </condition>
     </compare>
     <send_true_to>Validar usuário</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - referência conteúdo</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>272</yloc>
+      <xloc>960</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -259,8 +259,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>432</yloc>
+      <xloc>1104</xloc>
+      <yloc>144</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -292,8 +292,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>304</yloc>
+      <xloc>1104</xloc>
+      <yloc>48</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -324,12 +324,12 @@
       </condition>
     </compare>
     <send_true_to>Remover referências</send_true_to>
-    <send_false_to>Quarentena</send_false_to>
+    <send_false_to>Registrar erro - referência usuário</send_false_to>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>336</yloc>
+      <xloc>1248</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -352,8 +352,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>368</yloc>
+      <xloc>1392</xloc>
+      <yloc>48</yloc>
     </GUI>
     <description/>
     <partitioning>
@@ -409,8 +409,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>384</yloc>
+      <xloc>1536</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -446,8 +446,234 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>400</yloc>
+      <xloc>1680</xloc>
+      <yloc>48</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - campos obrigatórios</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CAMPOS_OBRIGATORIOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Campo obrigatório não informado</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>240</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - valores permitidos</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>VALORES_PERMITIDOS</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Valor fora dos valores permitidos</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>160</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - referência conteúdo</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>REFERENCIA_CONTEUDO</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>conteudo_id não encontrado na tabela conteudo</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>224</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - referência usuário</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>REFERENCIA_USUARIO</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>usuario_id não encontrado na tabela usuario</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>1248</xloc>
+      <yloc>176</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Registrar erro - duplicidade</name>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>DUPLICIDADE</nullif>
+        <name>regra_violada</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Duplicidade de usuario_id + conteudo_id + data + comentario</nullif>
+        <name>mensagem_erro</name>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>1680</xloc>
+      <yloc>208</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SystemInfo</type>
+    <name>Obtem data e hora do erro</name>
+    <fields>
+      <field>
+        <name>data_erro</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>368</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -474,7 +700,7 @@
     <schema_definition/>
     <ignore_fields>N</ignore_fields>
     <file>
-      <name>${SILVER_HOME}/comentarios.json</name>
+      <name>${SILVER_HOME}/comentarios.csv</name>
       <do_not_open_new_file_init>Y</do_not_open_new_file_init>
       <extension/>
       <append>N</append>
@@ -493,8 +719,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>400</yloc>
+      <xloc>1824</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -540,8 +766,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>112</yloc>
+      <xloc>960</xloc>
+      <yloc>464</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -567,14 +793,6 @@
     <readurl>N</readurl>
     <removeSourceField>N</removeSourceField>
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <shortFileFieldName/>
-    <extensionFieldName/>
-    <pathFieldName/>
-    <sizeFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
     <files>
       <file>
         <name>${BRONZE_HOME}/comentarios.json</name>
@@ -706,8 +924,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
+      <xloc>64</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -742,8 +960,8 @@
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>112</yloc>
+      <xloc>192</xloc>
+      <yloc>48</yloc>
     </GUI>
     <partitioning>
       <method>none</method>
@@ -758,8 +976,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Validar campos obrigatórios</from>
-      <to>Quarentena</to>
+      <from>Registrar erro - campos obrigatórios</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar valores permitidos</from>
+      <to>Validar conteúdo</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - valores permitidos</from>
+      <to>Obtem data e hora do erro</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -773,11 +1001,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Validar valores permitidos</from>
-      <to>Validar conteúdo</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Validar conteúdo</from>
       <to>Referência conteúdo</to>
       <enabled>Y</enabled>
@@ -788,8 +1011,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Registrar erro - referência conteúdo</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Validar usuário</from>
       <to>Referência usuário</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Registrar erro - referência usuário</from>
+      <to>Obtem data e hora do erro</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -803,16 +1036,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Referência conteúdo</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Referência usuário</from>
-      <to>Quarentena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Ordenar linhas</from>
       <to>linhas únicas</to>
       <enabled>Y</enabled>
@@ -823,12 +1046,17 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Validar valores permitidos</from>
-      <to>Quarentena</to>
+      <from>linhas únicas</from>
+      <to>Registrar erro - duplicidade</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>linhas únicas</from>
+      <from>Registrar erro - duplicidade</from>
+      <to>Obtem data e hora do erro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtem data e hora do erro</from>
       <to>Quarentena</to>
       <enabled>Y</enabled>
     </hop>
@@ -842,13 +1070,33 @@
       <to>Validar campos obrigatórios</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Validar campos obrigatórios</from>
+      <to>Registrar erro - campos obrigatórios</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar valores permitidos</from>
+      <to>Registrar erro - valores permitidos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Referência usuário</from>
+      <to>Registrar erro - referência usuário</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Referência conteúdo</from>
+      <to>Registrar erro - referência conteúdo</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <notepads/>
   <attributes/>
   <transform_error_handling>
     <error>
       <source_transform>linhas únicas</source_transform>
-      <target_transform>Quarentena</target_transform>
+      <target_transform>Registrar erro - duplicidade</target_transform>
       <is_enabled>Y</is_enabled>
       <nr_valuename>error_row</nr_valuename>
       <descriptions_valuename>error_description</descriptions_valuename>

@@ -1,7 +1,7 @@
 # Publicação da camada Gold
 
-- Execução: `e855f951-3c3a-45d8-8e4b-f5e7851f7e6d` em 2026-09-27T21:13:25
-- Quality gate: `b92c8c60-0b3a-4770-a37c-c19f359ca68f` — sucesso_com_ressalvas
+- Execução: `f1ad24ee-4d9e-4291-abb2-73050ea7840e` em 2026-09-29T04:06:04
+- Quality gate: `f1ad24ee-4d9e-4291-abb2-73050ea7840e` — sucesso_com_ressalvas
 
 | Objeto | Linhas |
 |---|---:|
@@ -13,7 +13,7 @@
 | `gold.dim_usuario` | 150 |
 | `gold.fato_interacao` | 1000 |
 | `gold.fato_comentario` | 1000 |
-| `gold.fato_recomendacao` | 3000 |
+| `gold.fato_recomendacao` | 1500 |
 | `gold.kpi_engajamento_mensal_categoria` | 64 |
 | `gold.vw_kpi_mensal` | 8 |
 | `gold.vw_desempenho_conteudo` | 997 |

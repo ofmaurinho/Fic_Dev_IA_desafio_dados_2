@@ -56,8 +56,7 @@ class ContratoSilver:
 
 INTERACOES = ContratoSilver(
     nome="interacoes",
-    # O pipeline silver_interacoes grava CSV separado por ";" com extensão .json.
-    arquivo="interacoes.json",
+    arquivo="interacoes.csv",
     separador=";",
     esquema=pa.schema(
         [
@@ -80,7 +79,7 @@ INTERACOES = ContratoSilver(
 
 COMENTARIOS = ContratoSilver(
     nome="comentarios",
-    arquivo="comentarios.json",
+    arquivo="comentarios.csv",
     separador=";",
     esquema=pa.schema(
         [
@@ -165,6 +164,7 @@ def ler_silver_csv(contrato, caminho=None, tolerante=False):
                 numeros = numeros.where(numeros % 1 == 0)
             df[campo.name] = numeros.astype("Int64")
         elif pa.types.is_floating(campo.type):
+            coluna = coluna.str.replace(",", ".", regex=False)
             df[campo.name] = pd.to_numeric(coluna, errors=erros)
 
     return df[esperadas]

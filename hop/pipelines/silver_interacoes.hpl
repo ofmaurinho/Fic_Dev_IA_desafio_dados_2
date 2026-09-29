@@ -262,6 +262,7 @@
     <variables_active>Y</variables_active>
     <connection>${DB_CONNECTION}</connection>
     <lookup/>
+    <sql_from_file/>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
@@ -352,6 +353,7 @@
     <variables_active>Y</variables_active>
     <connection>${DB_CONNECTION}</connection>
     <lookup/>
+    <sql_from_file/>
     <distribute>Y</distribute>
     <copies>1</copies>
     <GUI>
@@ -570,7 +572,7 @@
     <schema_definition/>
     <ignore_fields>N</ignore_fields>
     <file>
-      <name>${SILVER_HOME}/interacoes.json</name>
+      <name>${SILVER_HOME}/interacoes.csv</name>
       <do_not_open_new_file_init>Y</do_not_open_new_file_init>
       <extension/>
       <append>N</append>
@@ -612,18 +614,10 @@
     <addresultfile>N</addresultfile>
     <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
     <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>Y</ignoreMissingPath>
+    <ignoreMissingPath>N</ignoreMissingPath>
     <readurl>N</readurl>
     <removeSourceField>N</removeSourceField>
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <shortFileFieldName/>
-    <extensionFieldName/>
-    <pathFieldName/>
-    <sizeFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
     <files>
       <file>
         <name>${BRONZE_HOME}/interacoes.json</name>
@@ -1041,7 +1035,7 @@
   </transform>
   <transform>
     <type>JsonOutput</type>
-    <name>Quarentena 2</name>
+    <name>Quarentena</name>
     <operation_type>writetofile</operation_type>
     <encoding>UTF-8</encoding>
     <outputValue>outputValue</outputValue>
@@ -1243,7 +1237,7 @@
     </hop>
     <hop>
       <from>Obtem data e hora do erro</from>
-      <to>Quarentena 2</to>
+      <to>Quarentena</to>
       <enabled>Y</enabled>
     </hop>
   </order>

@@ -52,5 +52,5 @@ dados/silver/
 dados/gold/
 dados/quarentena/
 
-# Pasta metadata com configurações de conexão ao banco postgresql do apache hop
-metadata/
+
+qualidade/resultados/*.json
